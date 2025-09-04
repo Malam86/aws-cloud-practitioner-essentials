@@ -5,13 +5,18 @@ The purpose is to build a solid foundation in cloud concepts, AWS services, secu
 
 ## 📚 Modules
 - [Module 1: Introduction to Amazon Web Services](./module-1-introduction-to-cloud/notes.md) ✅
-- Module 2: Compute in the Cloud ⏳
-- Module 3: Global Infrastructure and Reliability
-- Module 4: Networking
-- Module 5: Storage
-- Module 6: Security
-- Module 7: Monitoring & Pricing
-- Module 8: AWS Support and Final Review
+- Module 2: Compute in the Cloud 
+- Module 3: Exploring Compute Services
+- Module 4: Going Global
+- Module 5: Networking
+- Module 6: Storage
+- Module 7: Databases
+- Module 8: AI ML and Data Analytics
+- Module 9: Security
+- Module 10: Monitoring, Compliance and Governance in the AWS Cloud
+- Module 11: Pricing and Support
+- Module 12: Migrating to the AWS Cloud
+- Module 13: Well-Architected Solutions
 
 ## 🎯 Goals
 - Understand cloud concepts and AWS core services.  
