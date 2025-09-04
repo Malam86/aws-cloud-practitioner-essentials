@@ -5,7 +5,7 @@ The purpose is to build a solid foundation in cloud concepts, AWS services, secu
 
 ## 📚 Modules
 - [Module 1: Introduction to Amazon Web Services](./module-1-introduction-to-cloud/notes.md) 
-- [Module 2: Compute in the Cloud](./module-2-compute-in-the-cloud/notes.md)
+- [Module 2: Compute in the Cloud](./module-2-compute-in-the-cloud/lab-work/notes.md)
 - Module 3: Exploring Compute Services
 - Module 4: Going Global
 - Module 5: Networking
