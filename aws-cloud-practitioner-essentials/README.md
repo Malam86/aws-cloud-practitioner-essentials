@@ -16,7 +16,7 @@ The purpose is to build a solid foundation in cloud concepts, AWS services, secu
 - Module 10: Monitoring, Compliance and Governance in the AWS Cloud
 - Module 11: Pricing and Support
 - Module 12: Migrating to the AWS Cloud
-- Module 13: Well-Architected Solutions
+- Module 13: Well-Architected Solutions 
 
 ## 🎯 Goals
 - Understand cloud concepts and AWS core services.  
