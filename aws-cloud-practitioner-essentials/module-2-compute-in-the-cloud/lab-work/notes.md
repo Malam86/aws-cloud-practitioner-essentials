@@ -13,6 +13,64 @@ Compute refers to the processing power required to run applications, manage data
 | **Storage Optimized** | High, sequential read/write access to large datasets | Data warehousing, distributed file systems 
 | **Accelerated Computing** | Hardware accelerators (e.g., GPUs) | Graphics processing, machine learning 
 
+## 📸 Amazon Machine Images (AMI)
+
+An AMI is a template containing the software configuration (OS, applications, settings) required to launch an EC2 instance.
+
+### 🧩 AMI Components:
+- **Root Volume Template**: OS, applications, and configurations
+- **Launch Permissions**: Controls which accounts can use the AMI (public/private/shared)
+- **Block Device Mapping**: Specifies storage volumes to attach
+- **Instance Type Support**: Determines compatible EC2 instance types
+
+### 🚀 Three Ways to Use AMIs:
+
+#### 1. Create Your Own Custom AMI
+**Meaning:** Build customized images from configured EC2 instances with your specific software and settings.
+
+**Example:** Creating an AMI with Apache, PHP, MySQL, and your web application pre-installed.
+
+#### 2. Use Available AWS AMIs  
+**Meaning:** Use pre-configured images provided and maintained by AWS.
+
+**Types:**
+- Amazon Linux & Amazon Linux 2 (AWS-optimized)
+- Windows Server versions
+- Ubuntu, Red Hat, SUSE Linux distributions
+
+**Benefits:**
+- Free to use (only pay for EC2 resources)
+- Regularly security-patched by AWS
+- Optimized for AWS environment
+
+#### 3. Purchase from AWS Marketplace
+**Meaning:** Use specialized AMIs created by third-party vendors with commercial software.
+
+**Use Cases:**
+- Commercial software (MATLAB, Oracle, SAP)
+- Pre-configured solutions (WordPress, security appliances)
+- Industry-specific applications
+
+**Pricing Models:**
+- Free (only EC2 costs)
+- Hourly usage fees
+- Annual subscription fees
+
+### 🔄 AMI Repeatability
+**Meaning:** The ability to consistently recreate identical environments from the same AMI.
+
+**Benefits:**
+- Environment consistency across development/staging/production
+- Rapid scaling of identical instances
+- Disaster recovery and quick environment recreation
+- Version control for infrastructure
+
+**Best Practices:**
+- Use Golden AMI approach for production
+- Automate AMI building with tools like Packer
+- Implement versioning and change logs
+- Thoroughly test new AMIs before production use
+
 ## 🖥️ Methods to Interact with AWS Services
 
 AWS provides three main ways to interact with their services:
