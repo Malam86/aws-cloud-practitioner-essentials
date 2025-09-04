@@ -71,6 +71,91 @@ An AMI is a template containing the software configuration (OS, applications, se
 - Implement versioning and change logs
 - Thoroughly test new AMIs before production use
 
+## 💰 AWS Pricing Options & Cost Optimization
+
+### 🏷️ EC2 Pricing Models
+
+#### 1. On-Demand Instances
+**Meaning:** Pay for compute capacity by the second or hour with no long-term commitments.
+**Best For:** Short-term, unpredictable workloads that cannot be interrupted
+**Example:** Development and test environments, applications with unpredictable traffic patterns
+
+#### 2. Reserved Instances (RIs)
+**Meaning:** Significant discount (up to 75%) compared to On-Demand pricing in exchange for a 1 or 3-year commitment
+**Types:**
+- **Standard RIs:** Largest discount, capacity reservation
+- **Convertible RIs:** Can exchange for different instance types, lower discount
+- **Scheduled RIs:** Launch within specified time windows
+**Example:** Production databases, steady-state applications
+
+#### 3. Savings Plans
+**Meaning:** Flexible pricing model offering lower prices in exchange for a commitment to consistent usage ($/hour) for 1 or 3 years
+**Types:**
+- **Compute Savings Plans:** Most flexible, applies across EC2, Fargate, Lambda
+- **EC2 Instance Savings Plans:** Specific to EC2 instance families in a region
+**Example:** Commit to $10/hour for 1 year, get discounted rates on any usage above that commitment
+
+#### 4. Spot Instances
+**Meaning:** Purchase unused EC2 capacity at up to 90% discount, but can be terminated with 2-minute notice
+**Best For:** Fault-tolerant, flexible applications that can handle interruptions
+**Example:** Big data processing, containerized workloads, CI/CD pipelines
+
+#### 5. Dedicated Instances
+**Meaning:** Instances running on hardware dedicated to a single AWS customer, no other customers share the hardware
+**Features:**
+- Hardware isolation at the host level
+- May share hardware with other instances from same AWS account
+- No control over instance placement
+**Example:** Regulatory requirements requiring hardware isolation
+
+#### 6. Dedicated Hosts
+**Meaning:** Physical server fully dedicated for your use, providing additional visibility and control over how instances are placed
+**Features:**
+- Complete control over instance placement
+- Bring-your-own-license (BYOL) benefits
+- Per-socket or per-core pricing available
+- Most expensive dedicated option
+**Example:** Applications requiring specific socket/core counts for licensing compliance
+
+### ⚖️ Dedicated Hosts vs. Dedicated Instances
+| Feature | Dedicated Hosts | Dedicated Instances |
+|---------|-----------------|---------------------|
+| **Hardware Control** | Full control over instance placement | No control over placement |
+| **Visibility** | See sockets, cores, host ID | No host-level visibility |
+| **Licensing** | BYOL benefits available | Standard AWS licensing |
+| **Cost** | Higher cost | Lower cost than Dedicated Hosts |
+| **Use Case** | License compliance, regulatory requirements | General hardware isolation needs |
+
+### 🎯 Cost Optimization Strategies
+
+#### 1. Savings Plans
+**Meaning:** Commit to consistent usage amount ($/hour) for 1 or 3 years for significant discounts
+**Flexibility:** Can be applied across instance families, sizes, regions, and even services
+**Example:** Commit to $20/hour for 3 years, get up to 72% discount on all usage above commitment
+
+#### 2. Capacity Reservations
+**Meaning:** Reserve capacity in a specific Availability Zone for any duration, paying On-Demand rates regardless of usage
+**Benefits:** 
+- Ensure capacity when needed
+- Combine with Savings Plans for cost savings
+- No long-term commitment required
+**Example:** Reserve capacity for holiday season traffic spikes
+
+#### 3. Reserved Instance Flexibility
+**Meaning:** Options to modify existing RIs to accommodate changing needs
+**Features:**
+- **Size Flexibility:** Exchange RIs for different sizes in same instance family
+- **Regional Benefits:** Some RIs can be applied across Availability Zones in a region
+- **Convertible Option:** Exchange RIs for different instance types with convertible RIs
+**Example:** Exchange 4 large instances for 8 medium instances as workload changes
+
+### 💡 Cost Optimization Best Practices
+1. **Right-Sizing:** Regularly review and adjust instance types to match workload requirements
+2. **Instance Scheduling:** Automate start/stop for non-production instances
+3. **Spot Integration:** Use Spot Instances for appropriate workloads
+4. **Commitment Management:** Use Savings Plans for baseline usage, On-Demand for variable usage
+5. **Regular Review:** Use Cost Explorer and AWS Budgets to monitor and optimize spending
+
 ## 🖥️ Methods to Interact with AWS Services
 
 AWS provides three main ways to interact with their services:
