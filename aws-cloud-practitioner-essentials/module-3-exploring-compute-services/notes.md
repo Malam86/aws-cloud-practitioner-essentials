@@ -48,4 +48,4 @@ AWS offers a range of compute services beyond EC2, each designed for specific us
 | **Beanstalk** | Web apps | Low |
 
 ---
-✅ Completed on: *[Insert Date]*
+✅ Completed on: 
