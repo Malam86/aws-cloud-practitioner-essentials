@@ -571,4 +571,4 @@ Multi-tenancy is a fundamental cloud architecture where multiple customers (tena
 - Explored the EC2 dashboard and instance details.
 
 ---
-✅ Completed on: 
+✅ Completed on: 9/5/2025
