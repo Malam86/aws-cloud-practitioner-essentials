@@ -237,6 +237,146 @@ Auto Scaling Group Configuration:
 - Maximum capacity: 10 instances
 - Scaling policy: Scale out when CPU > 70%, scale in when CPU < 30%
 
+## 🌐 Elastic Load Balancing (ELB)
+
+### 📖 What is Elastic Load Balancing?
+**Meaning:** A AWS service that automatically distributes incoming application traffic across multiple targets (such as EC2 instances, containers, IP addresses) in one or more Availability Zones.
+
+**Key Purpose:** 
+- Improves application availability and fault tolerance
+- Distributes traffic evenly to prevent any single resource from being overwhelmed
+- Provides seamless scalability for applications
+
+**Example:** 
+- An e-commerce website distributing user requests across 10 EC2 instances
+- A mobile game backend spreading player connections across multiple servers
+- An API service balancing requests across different availability zones
+
+### 🎯 ELB Benefits
+
+#### 1. Efficient Traffic Distribution
+**Meaning:** Automatically routes incoming traffic to healthy targets while avoiding overloaded or unhealthy instances.
+
+**How it works:**
+- Continuously monitors target health
+- Only sends traffic to targets that can handle requests
+- Distributes load based on configured routing algorithm
+
+**Example:**
+- During peak shopping hours, ELB directs users to available servers instead of overloaded ones
+- If one server has high CPU usage, ELB routes new requests to less busy servers
+
+#### 2. Automatic Scaling
+**Meaning:** Works seamlessly with Auto Scaling to automatically adjust to changing traffic patterns without manual intervention.
+
+**How it works:**
+- Integrates with Amazon EC2 Auto Scaling
+- Automatically registers new instances as they come online
+- Deregisters instances that are terminated or unhealthy
+
+**Example:**
+- During flash sale, Auto Scaling adds 20 new instances and ELB immediately starts sending traffic to them
+- After traffic decreases, ELB stops sending requests to instances being terminated
+
+#### 3. Simplified Management
+**Meaning:** Provides a single point of contact for clients while handling complex routing decisions behind the scenes.
+
+**How it works:**
+- Single DNS name for applications
+- Automatic certificate management with AWS Certificate Manager
+- Built-in security features and logging
+
+**Example:**
+- Developers only need to point their domain to the load balancer DNS
+- SSL/TLS certificates automatically renewed and deployed
+- Centralized access logs for all application traffic
+
+### 🔄 Routing Methods (Load Balancing Algorithms)
+
+#### 1. Round Robin
+**Meaning:** Distributes requests sequentially to each target in rotation, regardless of current load.
+
+**Best for:** Applications where all targets have similar capacity
+**Example:** Distributing API requests equally across 5 identical EC2 instances
+
+#### 2. Least Connections
+**Meaning:** Routes traffic to the target with the fewest active connections.
+
+**Best for:** Applications with varying request processing times
+**Example:** Video streaming service where some users watch HD content (long connections) and others browse (short connections)
+
+#### 3. IP Hash
+**Meaning:** Uses the client's IP address to determine which target receives the request, ensuring same client goes to same target.
+
+**Best for:** Applications requiring session persistence
+**Example:** Shopping cart application where user session data is stored on specific servers
+
+#### 4. Least Response Time
+**Meaning:** Routes traffic to the target with the fastest response time and fewest active connections.
+
+**Best for:** Applications requiring optimal performance
+**Example:** Real-time gaming platform where low latency is critical
+
+### 📈 ELB in Action: Traffic Flow Examples
+
+#### Initial Setup (Low-Demand Period)
+**Scenario:** Application running with minimal traffic
+**Configuration:**
+- 2 EC2 instances running
+- ELB health checks monitoring both instances
+- Round Robin routing configured
+
+**Example:** 
+- 100 users accessing a blog website
+- ELB sends 50 requests to Instance A, 50 to Instance B
+- Both instances operating at 30% CPU utilization
+
+#### Scaling Up (High-Demand Period)
+**Scenario:** Sudden traffic spike occurs
+**Configuration:**
+- Auto Scaling group configured to scale at 70% CPU
+- ELB automatically registers new instances
+
+**Example:**
+- News website during breaking news event
+- Traffic increases from 100 to 10,000 users
+- Auto Scaling adds 8 more instances (total 10)
+- ELB immediately starts distributing traffic to all 10 instances
+- Each instance handles ~1,000 users instead of 5,000
+
+#### Load Balancing (Traffic Distribution)
+**Scenario:** Ongoing traffic management
+**Configuration:**
+- Least Connections routing enabled
+- Health checks configured every 30 seconds
+
+**Example:**
+- E-commerce site during holiday sale
+- Some users browsing (short sessions), others checking out (long sessions)
+- ELB detects Instance C has many long checkout sessions
+- New browsing requests routed to Instance A and B with shorter sessions
+- Prevents checkout process from being slowed down by browse traffic
+
+### 🛡️ ELB Types and Use Cases
+
+**Application Load Balancer (ALB):**
+- Layer 7 load balancing
+- Best for HTTP/HTTPS traffic
+- Advanced routing based on content
+
+**Network Load Balancer (NLB):**
+- Layer 4 load balancing  
+- Best for extreme performance
+- TCP/UDP traffic handling
+
+**Gateway Load Balancer (GWLB):**
+- For third-party virtual appliances
+- Security and compliance workloads
+
+**Classic Load Balancer (CLB):**
+- Legacy load balancer
+- Basic Layer 4/Layer 7 features
+
 ## 🖥️ Methods to Interact with AWS Services
 
 AWS provides three main ways to interact with their services:
