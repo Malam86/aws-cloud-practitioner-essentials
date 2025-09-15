@@ -13,7 +13,7 @@
     - Messaging & Queuing Services (SQS, SNS, EventBridge)
     - Decoupling Architectures (Monolithic vs. Microservices)
 
-- **2025-09-05**: Completed Module 3 - Exploring Compute Services.
+- **2025-09-15**: Completed Module 3 - Exploring Compute Services.
   - **Key Topics Covered:** AWS Lambda (Serverless), Containers & Orchestration (ECS, EKS, ECR, Fargate), Elastic Beanstalk (PaaS), AWS Batch, Lightsail, and Outposts.
   - **Focus:** Understanding the full spectrum of AWS compute services and their ideal use cases for scalability and cost-optimization.
 
