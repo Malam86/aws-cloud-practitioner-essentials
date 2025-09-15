@@ -589,6 +589,283 @@ This architecture provides:
 - Built-in monitoring
 - Simplified deployment
 
+## 🌐 Additional Compute Services on AWS
+
+### 🌱 AWS Elastic Beanstalk
+
+**Meaning:** An easy-to-use service for deploying and scaling web applications and services without needing to understand the underlying infrastructure.
+
+**Key Concept:** "Platform as a Service (PaaS)" - You provide code, AWS handles the rest.
+
+**How it Works:**
+1. You upload your application code
+2. Choose a platform (Java, .NET, PHP, Node.js, Python, Ruby, Go, Docker)
+3. Elastic Beanstalk automatically handles:
+   - Deployment
+   - Capacity provisioning
+   - Load balancing
+   - Auto-scaling
+   - Application health monitoring
+
+**Real-World Example: E-commerce Startup**
+
+**Scenario:** A startup building an online store with Python/Django
+
+**Without Elastic Beanstalk:**
+- Provision EC2 instances
+- Configure load balancer
+- Set up auto-scaling rules
+- Install Python, Django, dependencies
+- Configure database connections
+- Set up monitoring and logging
+
+**With Elastic Beanstalk:**
+1. Developer creates Django application
+2. Packages code with requirements.txt
+3. Uses EB CLI: `eb create my-store-env`
+4. Elastic Beanstalk automatically:
+   - Provisions EC2 instances with Python
+   - Sets up load balancer
+   - Configures auto-scaling
+   - Sets up health monitoring
+   - Provides access logs
+
+**Benefits:**
+- ⚡ Faster time to market (deploy in minutes)
+- 🔧 No infrastructure expertise needed
+- 📈 Automatic scaling during sales events
+- 🛡️ Built-in monitoring and recovery
+- 🔄 Easy deployment updates: `eb deploy`
+
+**Technical Components:**
+- **Application:** Your web app (e.g., Node.js API)
+- **Environment:** Runtime environment (e.g., Node.js 16)
+- **Application Version:** Specific deployment package
+- **Environment Configuration:** Settings, resources, and policies
+
+### ⚗️ AWS Batch
+
+**Meaning:** A fully managed batch processing service that enables you to run batch computing workloads of any scale without managing infrastructure.
+
+**Key Concept:** "Run batch jobs without managing compute resources"
+
+**How it Works:**
+1. You define batch jobs (what to run)
+2. AWS Batch provisions the right compute resources
+3. Runs your jobs when resources are available
+4. Automatically scales down when done
+
+**Real-World Example: Scientific Research Data Processing**
+
+**Scenario:** A research institute processing genomic sequencing data
+
+**Traditional Approach:**
+- Buy expensive servers
+- Keep them running 24/7
+- Manually manage job scheduling
+- Pay for idle compute time
+
+**With AWS Batch:**
+1. Researchers submit DNA sequence files to S3
+2. AWS Batch automatically:
+   - Provisions EC2 instances with needed CPU/memory
+   - Runs processing containers across multiple instances
+   - Monitors job progress
+   - Stores results in S3
+   - Terminates instances when jobs complete
+
+Benefits:
+
+💰 Cost-effective (no idle resources)
+
+⚡ Handles massive parallel processing
+
+🔄 Automatic resource provisioning
+
+📊 Integrated with AWS ecosystem
+
+🎯 Optimizes resource utilization
+
+Use Cases:
+
+Financial risk modeling
+
+Media transcoding
+
+Scientific simulations
+
+Data analytics processing
+
+Machine learning training
+
+💡 AWS Lightsail
+Meaning: An easy-to-use cloud platform that offers everything needed to build an application or website, plus a cost-effective, monthly plan.
+
+Key Concept: "Simple virtual private server (VPS) solution"
+
+How it Works:
+
+Choose from pre-configured plans (like web hosting packages)
+
+Get a bundle of compute, storage, and networking
+
+Fixed monthly price
+
+Simple management console
+
+Real-World Example: Small Business Website
+
+Scenario: A local restaurant wants an online presence
+
+Without Lightsail:
+
+Understand EC2, EBS, VPC, security groups
+
+Configure everything manually
+
+Manage ongoing maintenance
+
+With Lightsail:
+
+Choose "WordPress" blueprint
+
+Select $10/month plan (1GB RAM, 40GB SSD, 2TB transfer)
+
+Click "Create Instance"
+
+Get automatically:
+
+WordPress pre-installed
+
+Static IP address
+
+DNS management
+
+Backup configured
+
+Firewall settings
+
+Benefits:
+
+💵 Predictable monthly pricing
+
+🎯 Simple for beginners
+
+⚡ Quick setup (minutes)
+
+🔧 Managed maintenance
+
+🌐 Pre-configured applications
+
+Comparison: Lightsail vs EC2
+
+Aspect	Lightsail	EC2
+Pricing	Fixed monthly	Pay-per-use
+Complexity	Simple	Complex
+Control	Limited	Full
+Use Case	Simple apps	Custom needs
+Scaling	Manual	Automatic
+🏢 AWS Outposts
+Meaning: A fully managed service that extends AWS infrastructure, services, APIs, and tools to virtually any datacenter, co-location space, or on-premises facility.
+
+Key Concept: "AWS cloud in your own data center"
+
+How it Works:
+
+AWS installs pre-configured racks in your data center
+
+These racks run AWS services locally
+
+Fully managed and maintained by AWS
+
+Connects back to AWS cloud for control plane
+
+Real-World Example: Financial Institution with Data Residency Requirements
+
+Scenario: A bank that must keep certain data in-country due to regulations
+
+Challenge:
+
+Need AWS services and agility
+
+Regulatory requirement: data must stay in country
+
+Some applications need low-latency access to on-prem systems
+
+Solution with Outposts:
+
+AWS installs Outposts rack in bank's data center
+
+Bank can run services locally:
+
+EC2 instances for applications
+
+EBS volumes for storage
+
+ECS/EKS for containers
+
+RDS for databases
+
+Data remains on-premises
+
+Management through AWS console
+
+AWS handles maintenance and updates
+
+Benefits:
+
+🏛️ Meet regulatory requirements
+
+⚡ Low latency for hybrid applications
+
+🔧 Consistent AWS experience
+
+🛡️ AWS security and compliance
+
+🔄 Seamless hybrid architecture
+
+Technical Details:
+
+Size: 1U or 2U servers, or full 42U racks
+
+Services: EC2, EBS, ECS, EKS, RDS, EMR
+
+Connectivity: Direct Connect to AWS regions
+
+Management: Through AWS Console/CLI
+
+Maintenance: AWS responsible for hardware/software
+
+🎯 Service Comparison Table
+Service | Best For |	Pricing | Management | Complexity
+|-------|----------|---------|------------|------------|
+|Elastic Beanstalk|	Web applications | Pay for resources|	AWS manages infrastructure |	Medium|
+|AWS Batch|	Batch processing |	Pay per job|	Fully managed|	Low|
+|Lightsail |	Simple applications |	Fixed monthly |	Simple management  |	Very Low|
+|Outposts |	Hybrid cloud, data residency |	Subscription + usage	| AWS managed |	High|
+
+💡 Exam Tips
+Elastic Beanstalk: Remember it's PaaS - you manage code, AWS manages infrastructure
+
+AWS Batch: Think "batch processing without servers" - great for scientific or financial computations
+
+Lightsail: Simple VPS solution - fixed pricing, pre-configured apps
+
+Outposts: AWS on-premises - for data residency and low-latency hybrid applications
+
+Use Case Matching: Be prepared to match scenarios to the right compute service
+
+🚀 Choosing the Right Service
+Simple web app: Lightsail or Elastic Beanstalk
+
+Complex microservices: ECS/EKS or Elastic Beanstalk
+
+Batch processing: AWS Batch
+
+Data residency needs: Outposts
+
+Learning AWS: Lightsail for basics, then move to other services
+
 ## ⚖️ Choosing the Right Compute Service
 
 | Service | Best For | Management Level |
