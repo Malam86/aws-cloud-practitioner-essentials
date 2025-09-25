@@ -17,4 +17,19 @@
   - **Key Topics Covered:** AWS Lambda (Serverless), Containers & Orchestration (ECS, EKS, ECR, Fargate), Elastic Beanstalk (PaaS), AWS Batch, Lightsail, and Outposts.
   - **Focus:** Understanding the full spectrum of AWS compute services and their ideal use cases for scalability and cost-optimization.
 
-NEXT MODULE 4 - GOING GOBAL 
+- **2025-09-06**: Completed Module 4 - Going Global. 
+  - **Topics Covered**: 
+    - AWS Global Infrastructure (Regions, Availability Zones, Edge Locations)
+    - Region Selection Strategies (Compliance, Proximity, Features, Pricing)
+    - Designing Highly Available Architectures (Multi-Region, Multi-AZ)
+    - Amazon CloudFront (CDN) and Content Delivery
+    - Amazon Route 53 (DNS Management & Routing Policies)
+    - Infrastructure as Code with AWS CloudFormation
+    - AWS Interaction Methods (Console, Programmatic, IaC)
+  - **Key Skills Gained**:
+    - How to design global applications for high availability
+    - Understanding of CDN and DNS for performance optimization
+    - Infrastructure automation and deployment strategies
+    - Cost optimization across global regions
+
+- **Next**: Start Module 5 - Networking (VPC, Subnets, Security Groups, Internet Gateway)
