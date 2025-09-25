@@ -7,8 +7,8 @@ The purpose is to build a solid foundation in cloud concepts, AWS services, secu
 - [Module 1: Introduction to Amazon Web Services](./module-1-introduction-to-cloud/notes.md) ✅
 - [Module 2: Compute in the Cloud](./module-2-compute-in-the-cloud/lab-work/notes.md) ✅
 - [Module 3: Exploring Compute Services](./module-3-exploring-compute-services/notes.md) ✅
-- [Module 4: Going Global](./module-4-going-global/notes.md) ⏳
-- Module 5: Networking
+- [Module 4: Going Global](./module-4-going-global/notes.md) ✅
+- Module 5: Networking ⏳
 - Module 6: Storage
 - Module 7: Databases
 - Module 8: AI ML and Data Analytics
