@@ -681,7 +681,7 @@ Solution: AWS Direct Connect
    - Standard security → **VPN**
    - Maximum isolation → **PrivateLink/Direct Connect**
 
-## 🎓 Quick Summary (Flashcards)
+## 🎓 Quick Summary
 
 **AWS Client VPN:** Connect remote workers to AWS with VPN
 **AWS Site-to-Site VPN:** Encrypted connection between offices and AWS  
