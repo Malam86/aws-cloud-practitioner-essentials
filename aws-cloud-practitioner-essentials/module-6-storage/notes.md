@@ -408,4 +408,136 @@ Development setup:
 
 This understanding helps you choose the right storage solution based on whether your data needs to be temporary or permanent!
 
+# EBS Snapshots - Exam Focus Notes
+
+## 🎯 WHAT ARE EBS SNAPSHOTS?
+**Definition:** Point-in-time backups of EBS volumes
+
+### Key Characteristics:
+- **Incremental Backups:** Only saves blocks that changed since last snapshot
+- **Stored in S3:** Snapshots are stored in Amazon S3 (not in EBS)
+- **Cross-AZ Redundancy:** Automatically stored across multiple Availability Zones
+- **Exact Copies:** New volumes from snapshots = identical to original volume
+
+### 🧠 EXAM TIP:
+"EBS snapshots are stored in S3" is a common exam question. Remember:
+- EBS volumes = block storage in specific AZ
+- EBS snapshots = object storage in S3 (regional)
+
+## 🔄 HOW SNAPSHOTS WORK - VISUALIZE THIS:
+Day 1: Volume [Block A][Block B][Block C][Block D] → Snapshot 1 (all blocks)
+Day 2: Volume [Block A][Block B][Block C][Block E] → Snapshot 2 (only Block E)
+Day 3: Volume [Block A][Block F][Block C][Block E] → Snapshot 3 (only Block F)
+
+
+**Key Insight:** Each snapshot only stores the CHANGED blocks, making them:
+- **Cost-effective** (you don't pay for duplicate data)
+- **Faster** (only transfer changes)
+
+## ⚖️ SHARED RESPONSIBILITY - CUSTOMER DUTIES:
+
+### YOU Are Responsible For:
+✅ **Scheduling snapshots** (AWS doesn't do this automatically)
+✅ **Managing retention** (how long to keep snapshots)
+✅ **Cost monitoring** (deleting old snapshots to save money)
+✅ **Encryption** of sensitive data in snapshots
+✅ **Testing restoration** procedures regularly
+✅ **Verifying integrity** of snapshots
+
+### AWS Is Responsible For:
+✅ Storing snapshots securely in S3
+✅ Maintaining infrastructure reliability
+✅ Ensuring snapshot durability across AZs
+
+## 💡 BENEFITS - EXAM FOCUS:
+
+### 1. Data Protection & Recovery
+- **Recovery from:** Corruption, accidental deletion, system failures
+- **Point-in-time restoration** to any snapshot moment
+
+### 2. Operational Flexibility
+- **Cross-Region migration** (copy snapshots to other regions)
+- **Volume resizing** (create larger volume from snapshot)
+- **Volume cloning** (create multiple identical volumes)
+- **Cross-account sharing** (share snapshots with other AWS accounts)
+
+### 3. Cost Effectiveness
+- **Pay only for changed blocks** after initial snapshot
+- **No minimum charges** - pay only for what you use
+- **Reduced backup windows** (faster incremental backups)
+
+## 🤖 AMAZON DATA LIFECYCLE MANAGER (DLM)
+
+### Purpose: Automate Snapshot Management
+**Problem it solves:** Manual snapshot management is:
+- Time-consuming
+- Error-prone
+- Difficult at scale
+
+### DLM Features:
+- **Schedule during off-peak hours** (minimizes performance impact)
+- **Automatic deletion** of outdated backups
+- **Policy-based management** (set once, forget about it)
+
+### 🧠 EXAM SCENARIO:
+"If you have hundreds of EBS volumes, what service helps manage snapshots?"
+**Answer:** Amazon Data Lifecycle Manager
+
+## 🛠️ CREATING DLM POLICIES - 5 STEPS:
+
+### Step 1: Create Policy
+**Tools available:**
+- Amazon EC2 console
+- API calls
+- AWS CLI
+- SDKs
+- AWS CloudFormation
+
+### Step 2: Select Target
+Choose between:
+- **EBS volume** (specific volume)
+- **EC2 instance** (all volumes attached to instance)
+
+### Step 3: Exclude Volumes
+Optional exclusions:
+- **Root volume** (usually OS disk)
+- **Data volumes** (specific data disks)
+
+### Step 4: Set Custom Schedules
+Configure:
+- **Creation frequency** (daily, weekly, etc.)
+- **Retention period** (how long to keep)
+- **Deletion timing** (when to remove old snapshots)
+
+### Step 5: Apply Additional Actions
+**Advanced options:**
+- **Tags** (organize and track snapshots)
+- **Snapshot archiving** (move to cheaper storage)
+- **Fast snapshot restore** (pre-warm for instant recovery)
+- **Cross-Region copying** (for disaster recovery)
+- **Cross-account sharing** (for collaboration)
+
+## 🎯 EXAM CRITICAL POINTS:
+
+### Must Remember:
+1. **Snapshots are incremental** - only changed blocks
+2. **Stored in S3** - not in EBS
+3. **Customer manages scheduling** - not automatic
+4. **DLM automates lifecycle** - for large environments
+5. **Can create multiple volumes** from one snapshot
+
+### Common Exam Questions:
+- "Where are EBS snapshots stored?" → **Amazon S3**
+- "How are subsequent snapshots billed?" → **Only for changed blocks**
+- "How to automate snapshot management?" → **Data Lifecycle Manager**
+- "Who manages snapshot scheduling?" → **Customer responsibility**
+
+### Cost Optimization Tips:
+- Delete old/unnecessary snapshots
+- Use DLM to automate cleanup
+- Archive infrequently accessed snapshots
+- Schedule during off-peak hours
+
+
+
 ✅ Completed on: [Insert Date]
