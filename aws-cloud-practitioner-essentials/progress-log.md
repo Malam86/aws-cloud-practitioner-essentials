@@ -33,3 +33,24 @@
     - Cost optimization across global regions
 
 - **Next**: Start Module 5 - Networking (VPC, Subnets, Security Groups, Internet Gateway)
+- **2025-10-17**: Completed Module 5 - Networking.
+  - **Topics Covered:**
+    - Amazon VPC (Virtual Private Cloud) Fundamentals
+    - Subnets (Public, Private, Isolated) and CIDR Blocks
+    - Security Groups (Instance-level firewall, stateful)
+    - Network ACLs (Subnet-level firewall, stateless)
+    - Internet Gateway and NAT Gateway
+    - VPC Peering and VPC Endpoints
+    - AWS Client VPN, Site-to-Site VPN, and Direct Connect
+    - Network Traffic Flow and Security Best Practices
+  - **Key Skills Gained:**
+    - Designing secure network architectures in AWS
+    - Implementing layered security with Security Groups and NACLs
+    - Configuring internet connectivity and private network access
+    - Understanding hybrid cloud connectivity options
+
+- **2025-10-27**: Started Module 6 - Storage.
+  - **Learning Focus:** Amazon S3, EBS, EFS, and storage best practices
+  - **Next Topics:** Object storage vs block storage, data durability, cost optimization
+
+- **Next:** Continue Module 6 - Storage (S3, EBS, EFS, Glacier), then Module 7 - Databases
