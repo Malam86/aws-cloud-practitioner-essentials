@@ -449,6 +449,96 @@ Day 3: Volume [Block A][Block F][Block C][Block E] → Snapshot 3 (only Block F)
 ✅ Maintaining infrastructure reliability
 ✅ Ensuring snapshot durability across AZs
 
+# Amazon EBS Snapshots
+
+## Overview
+EBS snapshots are point-in-time backups of EBS volumes. They can be used for:
+- Disaster recovery
+- Data migration  
+- Volume resizing
+- Creating consistent backups of production workloads
+
+## How EBS Snapshots Work
+- **Incremental backups** - Only save blocks that changed after your most recent snapshot
+- **Multiple volume creation** - Can create multiple new volumes from a single snapshot
+- **Exact copies** - New volumes created from snapshots are identical to the original volume
+- **Storage location** - Snapshots are stored redundantly in multiple Availability Zones using Amazon S3
+
+## Customer Responsibilities
+In keeping with the AWS shared responsibility model, as the customer you are responsible for:
+
+### Scheduling & Management
+- Scheduling and managing regular EBS snapshots as part of backup strategy
+- Monitoring snapshot costs and deleting unnecessary snapshots
+- Avoiding excessive charges by managing snapshot lifecycle
+
+### Security & Validation
+- Ensuring sensitive data within snapshots is encrypted
+- Verifying snapshot integrity
+- Testing restoration procedures regularly
+
+## Benefits of EBS Snapshots
+
+### Data Protection & Recovery
+- Fast data recovery from:
+  - Corruption
+  - Accidental deletion  
+  - System failures
+- Uses point-in-time backups for reliable restoration
+
+### Operational Flexibility
+Enables various operations including:
+- Cross-Region data migration
+- Volume resizing
+- Volume cloning
+- Sharing data across AWS accounts
+
+### Cost Effectiveness
+- Uses incremental backup technology
+- Only stores changed blocks after initial backup
+- Reduces storage costs and backup time
+
+## Amazon Data Lifecycle Manager
+
+### Purpose & Value
+- Automates creation, retention, and deletion of EBS snapshots
+- Schedules snapshots during off-peak hours to minimize performance impact
+- Automatically deletes outdated backups to control storage costs
+- Particularly valuable for large-scale deployments where manual management is time-consuming and error-prone
+
+### Creating DLM Policies - 5 Steps
+
+#### Step 1: Create EBS Snapshots Policy
+Use any of these methods:
+- Amazon EC2 console
+- API calls
+- AWS Command Line Interface (AWS CLI)
+- SDKs
+- AWS CloudFormation
+
+#### Step 2: Select Target Resource Type
+Choose either:
+- EBS volume
+- EC2 instance
+
+#### Step 3: Exclude Volumes
+Narrow down data by excluding:
+- Root volume
+- Data volumes
+
+#### Step 4: Set Custom Schedules
+Automate:
+- Creation frequency
+- Retention periods
+- Deletion timing
+
+#### Step 5: Apply Additional Actions
+Configure optional features:
+- Tags for organization
+- Snapshot archiving
+- Amazon EBS fast snapshot restore
+- Cross-Region copying
+- Cross-account sharing
 ## 💡 BENEFITS - EXAM FOCUS:
 
 ### 1. Data Protection & Recovery
