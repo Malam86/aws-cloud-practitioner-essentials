@@ -713,4 +713,119 @@ Amazon S3 supports both cloud-based applications and traditional on-premises wor
 - **Data lakes** - Foundation for big data analytics
 - **Compliance-driven retention** - Meet regulatory requirements
 
+  # Amazon S3 Storage Classes & Lifecycle Management
+
+## S3 Storage Classes Overview
+Amazon S3 offers various storage classes designed for specific workloads with different performance, access, resiliency, and cost requirements.
+
+## Storage Classes Details
+
+### 1. S3 Standard
+- **Default storage class** - Used when no storage class specified
+- **General-purpose storage** for cloud applications
+- **Use Cases:**
+  - Dynamic websites
+  - Content distribution
+  - Mobile and gaming applications
+  - Big data analytics
+
+### 2. S3 Intelligent-Tiering
+- **For unknown or changing access patterns**
+- **Automatic tiering** across three tiers:
+  - Frequent access tier
+  - Infrequent access tier
+  - Archive instant access tier
+- **Cost-effective** - Automatically moves data to most cost-effective tier based on access frequency
+
+### 3. S3 Standard-IA (Infrequent Access)
+- **For less frequently accessed data** requiring rapid access
+- **Same durability, throughput, low latency** as S3 Standard
+- **Lower storage price** with per-GiB retrieval fee
+- **Use Cases:**
+  - Long-term backups
+  - Disaster recovery files
+
+### 4. S3 One Zone-IA
+- **Stores data in single Availability Zone** (vs. three zones in Standard-IA)
+- **Lower costs** compared to S3 Standard-IA
+- **Lower availability** - No multi-AZ redundancy
+- **Use Cases:**
+  - Secondary backups
+  - Easily recreatable data
+  - Data without high availability needs
+
+### 5. S3 Express One Zone
+- **Single Availability Zone** storage
+- **Ultra-fast access** - Consistent single-digit millisecond data access
+- **Performance:** 10x faster data access than S3 Standard
+- **Cost:** Up to 80% lower request costs than S3 Standard
+- **Use Cases:** Most frequently accessed data and latency-sensitive applications
+
+### 6. S3 Glacier Instant Retrieval
+- **For archival data** rarely accessed with millisecond retrieval
+- **Cost savings:** Up to 68% compared to S3 Standard-IA
+- **Same performance** as S3 Standard-IA (latency and throughput)
+
+### 7. S3 Glacier Flexible Retrieval
+- **Low-cost storage** for archived data accessed 1-2 times per year
+- **Retrieval options:**
+  - **Expedited:** 1-5 minutes
+  - **Bulk retrievals:** 5-12 hours (no additional cost)
+- **Use Cases:**
+  - Backup
+  - Disaster recovery
+  - Offsite data storage
+
+### 8. S3 Glacier Deep Archive
+- **Lowest-cost** Amazon S3 storage class
+- **Default retrieval time:** 12 hours
+- **Long-term retention:** 7-10 years or longer
+- **Use Cases:**
+  - Regulatory compliance requirements
+  - Highly regulated industries (financial services, healthcare, public sectors)
+  - Digital preservation
+
+### 9. S3 Outposts
+- **On-premises object storage** using AWS Outposts environment
+- **Uses S3 APIs and features**
+- **Use Cases:**
+  - Local data residency requirements
+  - Applications requiring data proximity to on-premises systems
+
+## S3 Lifecycle Management
+
+### Overview
+- **Automates** object storage tier configurations
+- **Eliminates manual management** of object transitions
+
+### Lifecycle Configuration Actions
+
+#### Transition Actions
+- **Define when objects transition** to another storage class
+- **Examples:**
+  - Transition to S3 Standard-IA after 30 days
+  - Archive to S3 Glacier Deep Archive after 1 year
+
+#### Expiration Actions
+- **Define when objects expire** and should be permanently deleted
+- **Automated cleanup** of old or unnecessary data
+
+### Typical S3 Data Lifecycle
+Infrequently used data moves through storage classes and eventually gets deleted if unused after 365 days.
+
+### Use Cases for Lifecycle Configuration
+
+#### Periodic Logs
+- **Scenario:** Upload periodic logs to a bucket
+- **Need access** for a week or month
+- **Solution:** Delete logs after required retention period
+
+#### Changing Access Frequency Data
+- **Scenario:** Documents frequently accessed for limited period, then infrequently accessed
+- **Requirements:**
+  - Real-time access initially
+  - Archiving later for compliance
+  - Eventually deletion after retention period
+- **Solution:** Automated transitions through storage classes ending with deletion
+
 ✅ Completed on: [Insert Date]
