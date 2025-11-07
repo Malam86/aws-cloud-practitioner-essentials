@@ -9,8 +9,8 @@ The purpose is to build a solid foundation in cloud concepts, AWS services, secu
 - [Module 3: Exploring Compute Services](./module-3-exploring-compute-services/notes.md) ✅
 - [Module 4: Going Global](./module-4-going-global/notes.md) ✅
 - [Module 5: Networking](./module-5-networking/notes.md) ✅
-- [Module 6: Storage](./module-6-storage/notes.md) ⏳
-- Module 7: Databases
+- [Module 6: Storage](./module-6-storage/notes.md) ✅
+-  [Module 7: Databases](module-7-databases/notes.md)⏳
 - Module 8: AI ML and Data Analytics
 - Module 9: Security
 - Module 10: Monitoring, Compliance and Governance in the AWS Cloud
