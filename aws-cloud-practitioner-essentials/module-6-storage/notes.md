@@ -828,4 +828,135 @@ Infrequently used data moves through storage classes and eventually gets deleted
   - Eventually deletion after retention period
 - **Solution:** Automated transitions through storage classes ending with deletion
 
+  # Amazon Elastic File System (Amazon EFS)
+
+## Overview & Core Concepts
+
+### What is Amazon EFS?
+- **Fully managed file storage service** for AWS cloud and on-premises resources
+- **Uses NFS protocol** (Linux Network File System) - version 4.0 and 4.1
+- **Automatic scaling** - grows and shrinks automatically as you add/remove files
+- **Petabyte-scale** - can scale to petabytes of data
+- **Multi-instance access** - can be accessed by multiple EC2 instances simultaneously
+- **No minimum fee** - pay only for storage used (no setup costs)
+
+### Key Characteristics
+- **File-level storage** (not block or object storage)
+- **Shared file system** - multiple instances can access same files concurrently
+- **Regional service** - spans multiple Availability Zones within a region
+- **Linux-compatible** - works with Linux-based applications and instances
+
+## Amazon EFS Benefits
+
+### 1. Multi-AZ Redundancy
+- **Automatic replication** across multiple Availability Zones
+- **High availability** - continues operating even if an entire AZ fails
+- **Data durability** - 99.999999999% (11 9's) durability
+- **Automatic failover** - no manual intervention needed
+
+### 2. Shared Access
+- **Multiple EC2 instances** can mount and access the same file system simultaneously
+- **Consistent view** - all instances see the same file system state
+- **Concurrent access** - supports thousands of concurrent NFS connections
+- **Use cases:** Content management systems, web serving, application sharing
+
+### 3. Elastic Storage
+- **Automatic scaling** - no need to provision storage capacity in advance
+- **Grows and shrinks** automatically with your data
+- **No capacity planning** required
+- **Pay-per-use** - only pay for the storage you actually use
+
+## EFS Storage Classes
+
+### Standard Storage Classes
+- **EFS Standard**
+  - Default storage class for frequently accessed files
+  - Multi-AZ redundancy (across 3+ Availability Zones)
+  - Ideal for active working sets and hot data
+
+### One Zone Storage Classes
+- **EFS One Zone**
+  - Stores data in a **single Availability Zone**
+  - **Lower cost** (47% cheaper than EFS Standard)
+  - **Lower availability** - data lost if the AZ fails
+  - **Use cases:** Development, testing, backup storage, easily recreatable data
+
+### Archive Storage Classes
+- **EFS Infrequent Access (IA)**
+  - Cost-optimized for rarely accessed data
+  - Same durability and availability as Standard class
+  - **92% lower storage price** than EFS Standard
+  - **Per-GB retrieval fees** apply when accessing data
+
+- **EFS Archive**
+  - Lowest-cost storage class
+  - For data accessed very rarely (few times per year or less)
+  - Maximum cost savings for long-term retention
+
+## EFS Data Lifecycle Management
+
+### Overview
+- **Automatically moves files** between storage classes based on access patterns
+- **Cost optimization** - ensures data is in most cost-effective storage class
+- **Policy-based** - set rules for automatic transitions
+- **No application changes** required - lifecycle management is transparent
+
+### Lifecycle Policies
+
+#### Transition to Infrequent Access (IA)
+- **When:** Files not accessed in Standard storage for 30 days (default)
+- **Purpose:** Move less frequently accessed data to lower-cost tier
+- **Access pattern:** Data accessed only a few times each quarter
+- **Cost savings:** Significant reduction in storage costs
+
+#### Transition to Archive
+- **When:** Files not accessed in Standard storage for 90 days (default)
+- **Purpose:** Move rarely accessed data to lowest-cost tier
+- **Access pattern:** Data accessed only a few times per year or less
+- **Maximum cost savings** for long-term data retention
+
+#### Transition to Standard
+- **When:** Files are accessed while in IA or Archive storage
+- **Default behavior:** Files **do NOT** automatically move back to Standard
+- **Files remain** in their current storage class (IA or Archive) when accessed
+- **Manual intervention** may be needed to move files back to Standard
+
+## Exam Critical Points
+
+### Must Remember:
+- **NFS protocol** - EFS uses Network File System (Linux)
+- **Multi-AZ by default** - for high availability
+- **Shared access** - multiple EC2 instances simultaneously
+- **Automatic scaling** - no capacity planning needed
+- **Lifecycle management** - automatic cost optimization
+
+### Comparison with Other Storage:
+| Feature | EFS | EBS | S3 |
+|---------|-----|-----|----|
+| **Storage Type** | File | Block | Object |
+| **Access Protocol** | NFS | Block | HTTP/HTTPS |
+| **Multi-instance** | ✅ Yes | ❌ No | ✅ Yes |
+| **Scalability** | Automatic | Manual | Automatic |
+
+### Use Cases:
+- **Web serving** - shared content for multiple web servers
+- **Content management** - shared storage for CMS platforms
+- **Application sharing** - shared code and resources
+- **Data analytics** - shared datasets for processing
+- **Container storage** - persistent storage for containers
+- **Backup and disaster recovery**
+
+### Cost Optimization Tips:
+- Use **EFS One Zone** for non-critical data to save 47%
+- Implement **lifecycle policies** for automatic cost savings
+- Monitor access patterns to optimize transition timing
+- Consider **Infrequent Access** for data accessed quarterly
+- Use **Archive** for data accessed yearly or less
+
+## Key Differentiators for Exam
+- **EFS vs EBS:** EFS is shared, EBS is single-instance
+- **EFS vs S3:** EFS is file storage (NFS), S3 is object storage (HTTP)
+- **Regional vs AZ:** EFS Standard is regional, EFS One Zone is single-AZ
+- **Linux only:** EFS works with Linux instances only
+
 ✅ Completed on: [Insert Date]
