@@ -52,5 +52,23 @@
 - **2025-10-27**: Started Module 6 - Storage.
   - **Learning Focus:** Amazon S3, EBS, EFS, and storage best practices
   - **Next Topics:** Object storage vs block storage, data durability, cost optimization
+  - Completed Module 6 - Storage.
+ **2025-11-7** "Completed" Topics Covered:
+Amazon S3: Object storage, buckets, objects, storage classes (Standard, Intelligent-Tiering, Standard-IA, One Zone-IA, Glacier, Deep Archive), lifecycle policies, security (bucket policies, encryption)
+Amazon EBS: Block storage, volume types (SSD, HDD), snapshots (incremental), Data Lifecycle Manager, use cases (boot volumes, databases)
+Amazon EFS: File storage, NFS protocol, multi-AZ, storage classes (Standard, One Zone, IA, Archive), lifecycle management
+Amazon FSx: Fully managed file systems for Windows (SMB), Lustre (HPC), OpenZFS (Linux), and NetApp ONTAP (enterprise)
+AWS Storage Gateway: Hybrid storage (File Gateway, Volume Gateway, Tape Gateway)
+AWS Elastic Disaster Recovery: Continuous replication, rapid recovery, non-disruptive testing
 
-- **Next:** Continue Module 6 - Storage (S3, EBS, EFS, Glacier), then Module 7 - Databases
+Key Skills Gained:
+Understanding of different storage types (object, block, file) and their use cases
+Implementing cost optimization through storage classes and lifecycle policies
+Designing hybrid storage architectures with Storage Gateway
+Setting up disaster recovery solutions with Elastic Disaster Recovery
+
+
+2025-11-7: Started Module 7 - Databases.
+
+Learning Focus: Amazon RDS, DynamoDB, Aurora, Redshift, and database best practices.
+Next Topics: Relational vs. non-relational databases, database scaling, and management.
