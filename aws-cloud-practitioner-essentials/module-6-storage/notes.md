@@ -1115,4 +1115,147 @@ Infrequently used data moves through storage classes and eventually gets deleted
 - FSx for OpenZFS = Linux/Unix, ZFS features
 - FSx for ONTAP = Enterprise storage, multiple protocols simultaneously
 
+# AWS Storage Gateway
+
+## Overview
+AWS Storage Gateway is a hybrid cloud storage service that seamlessly integrates on-premises environments with AWS Cloud storage. It extends local storage to the cloud while maintaining low-latency access to frequently used data.
+
+## Key Benefits
+
+### 1. Seamless Integration
+- Connects on-premises environments with AWS Cloud storage
+- Maintains low-latency access to frequently used data
+- Extends local storage capacity to virtually unlimited cloud storage
+- Works with existing applications and workflows
+
+### 2. Improved Data Management
+- Streamlines storage management across hybrid environments
+- Reduces costs for hybrid cloud storage use cases
+- Provides centralized management through AWS console
+- Automates data movement between on-premises and cloud
+
+### 3. Local Caching
+- Intelligent caching of frequently accessed data
+- Maintains performance for active workloads
+- Automatically caches recent and frequently used data
+- Reduces latency for critical applications
+
+### 4. Cost Optimization
+- Reduces on-premises storage costs
+- Leverages cost-effective cloud storage
+- Eliminates physical hardware maintenance
+- Pay-as-you-go pricing model
+
+## Gateway Types
+
+### Amazon S3 File Gateway
+
+#### Overview
+- Bridges local environment with Amazon S3
+- Provides on-premises applications access to cloud storage using file protocols
+- Stores and retrieves cloud objects using familiar file operations
+- Appears as standard file server to local systems
+
+#### How It Works
+- Files written to gateway automatically upload to Amazon S3
+- Maintains local access to recently used data through intelligent caching
+- Applications work with files normally while data is stored in AWS Cloud
+- Supports NFS and SMB protocols
+
+### Volume Gateway
+
+#### Overview
+- Creates virtual storage volumes while maintaining local data access
+- Presents cloud data as iSCSI volumes
+- Can be mounted by existing applications
+- Functions as bridge between on-premises infrastructure and AWS Cloud storage
+
+#### Configuration Modes
+
+##### Cached Volume Mode
+- Primary data stored in the cloud
+- Frequently accessed data cached locally for low-latency access
+- Optimizes storage costs by keeping only active data on-premises
+- Provides virtually unlimited storage capacity
+
+##### Stored Volume Mode
+- Complete dataset kept locally
+- Asynchronously backs up data to cloud as EBS snapshots
+- Maintains full local performance
+- Provides cloud backup for disaster recovery
+
+### Tape Gateway
+
+#### Overview
+- Replaces physical tape infrastructure with virtual tape capabilities
+- Leverages durability and scalability of AWS Cloud storage
+- Works with existing tape backup software
+- Provides seamless transition from physical tapes to cloud storage
+
+#### How It Works
+- Presents as standard tape hardware to backup applications
+- Backup software writes data to virtual tapes as with physical tapes
+- Data stored in Amazon S3 and Amazon S3 Glacier
+- Automatic transition to cost-effective storage for long-term retention
+
+## Use Cases
+
+### Moving Backups to Cloud
+- Replace traditional backup infrastructure
+- Leverage cloud scalability and durability
+- Reduce on-premises storage costs
+
+### On-Premises File Shares Backed by Cloud Storage
+- Extend file server capacity to cloud
+- Maintain local performance for active files
+- Reduce local storage hardware requirements
+
+### Low-Latency Access to AWS Data
+- Provide local caching for cloud data
+- Maintain application performance
+- Reduce data transfer costs
+
+### Tape Replacement
+- Eliminate physical tape infrastructure
+- Reduce tape management overhead
+- Improve disaster recovery capabilities
+
+## Key Features
+
+### Hybrid Architecture
+- Connects on-premises and cloud environments
+- Maintains data consistency across locations
+- Supports multiple connectivity options (VPN, Direct Connect)
+
+### Security
+- Data encryption in transit and at rest
+- Integration with AWS Identity and Access Management (IAM)
+- Network isolation options
+
+### Monitoring and Management
+- Integrated with Amazon CloudWatch
+- Centralized management through AWS console
+- Automated software updates
+
+### Cost Efficiency
+- Reduces capital expenditure on storage hardware
+- Optimizes operational costs through cloud scaling
+- Pay only for storage used and data transferred
+
+## Deployment Options
+
+### Hardware Appliance
+- Pre-configured physical device
+- Optimized for performance
+- Managed by AWS
+
+### Virtual Machine
+- Deploy on existing virtualization infrastructure
+- VMware ESXi, Microsoft Hyper-V, or Linux KVM
+- Flexible deployment options
+
+### Amazon EC2 Instance
+- Run as Amazon Machine Image (AMI)
+- Full control over instance configuration
+- Integrated with AWS ecosystem
 ✅ Completed on: [Insert Date]
