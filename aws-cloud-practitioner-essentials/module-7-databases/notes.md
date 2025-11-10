@@ -800,3 +800,244 @@ Amazon ElastiCache is a **fully managed in-memory caching service** that simplif
 - **VPC Deployment**: Isolate cache within private network
 - **Security Groups**: Restrict access to authorized applications only
 - **Regular Updates**: AWS handles security patching automatically
+
+# Module 7: Databases - Additional Database Services
+
+## Amazon DocumentDB
+
+### Overview
+Amazon DocumentDB is a **fully managed document database service** with MongoDB compatibility, designed specifically for handling semi-structured data that doesn't fit rigid relational schemas.
+
+### Key Characteristics
+
+#### Document Database Model
+- **JSON-like Documents**: Stores data in flexible, JSON-like documents
+- **Dynamic Schemas**: No fixed structure - schemas can evolve over time
+- **MongoDB Compatibility**: Supports MongoDB APIs, drivers, and tools
+- **Semi-structured Data**: Ideal for data that doesn't conform to rigid relational schemas
+
+#### Data Structure
+- **Collections**: Group of documents (similar to tables in relational databases)
+- **Documents**: Individual records stored as JSON-like objects
+- **Fields**: Key-value pairs within documents
+- **Embedded Documents**: Support for nested data structures
+
+### Benefits
+
+#### MongoDB Compatibility
+- **API Compatibility**: Works with existing MongoDB application code
+- **Driver Support**: Uses standard MongoDB drivers
+- **Tool Integration**: Compatible with MongoDB tools and utilities
+- **Minimal Migration**: Migrate MongoDB applications with minimal code changes
+- **Skill Reuse**: Leverage existing MongoDB expertise and knowledge
+
+#### Performance and Scalability
+- **Automatic Storage Scaling**: Scales from 10GB to 64TB in 10GB increments
+- **Compute Scaling**: Scale compute resources up or down as needed
+- **High Throughput**: Handles millions of requests per second
+- **Consistent Performance**: Maintains performance under heavy loads
+- **Storage Architecture**: Cluster storage volumes with 6-way replication
+
+#### Increased Read Throughput
+- **Read Replicas**: Create up to 15 low-latency read replicas
+- **Shared Storage**: Replicas share the same underlying storage
+- **Load Distribution**: Distribute read traffic across multiple instances
+- **High Availability**: Automatic failover to read replicas if needed
+
+### Use Cases
+
+#### Content Management Systems
+- **Flexible Content Storage**: Store articles, blogs, and multimedia content
+- **Dynamic Schemas**: Easy to add new content types and fields
+- **Hierarchical Data**: Naturally store nested content structures
+- **Metadata Management**: Flexible metadata storage for digital assets
+
+#### Catalog and Inventory Management
+- **Product Catalogs**: Store varying product attributes and specifications
+- **Flexible Inventory**: Handle different product types with varying data
+- **Rapid Iteration**: Quickly add new product categories and attributes
+- **Search Optimization**: Efficient indexing and querying of catalog data
+
+#### User Profile and Personalization Systems
+- **Dynamic User Data**: Store varying user preferences and attributes
+- **Personalization**: Flexible schema for user behavior and preferences
+- **Social Features**: Store user connections, activities, and interactions
+- **Real-time Updates**: Quick updates to user profiles and preferences
+
+### Architecture Features
+
+#### Storage Architecture
+- **Distributed Storage**: Data automatically distributed across multiple AZs
+- **6-Way Replication**: Data replicated across 6 storage nodes
+- **Automatic Repair**: Self-healing storage with automatic node replacement
+- **Continuous Backup**: Built-in backup to Amazon S3
+
+#### Compute Architecture
+- **Instance Classes**: Various compute-optimized instance types
+- **Read Replicas**: Up to 15 replicas for read scaling
+- **Automatic Failover**: Failover to replicas in case of primary failure
+- **Multi-AZ Deployment**: Automatic replication across Availability Zones
+
+## AWS Backup
+
+### Overview
+AWS Backup is a **fully managed backup service** that provides centralized, automated backup across AWS services and on-premises environments.
+
+### Key Features
+
+#### Centralized Backup Management
+- **Unified Dashboard**: Single console for managing backups across multiple services
+- **Cross-Service Support**: Works with EBS, EFS, RDS, DynamoDB, Storage Gateway, and more
+- **Multi-Account Management**: Manage backups across multiple AWS accounts
+- **Monitoring and Reporting**: Centralized monitoring of backup jobs and compliance
+
+#### Automated Backup Policies
+- **Backup Plans**: Define backup frequency, retention, and lifecycle rules
+- **Resource Tagging**: Automatically apply backups to resources with specific tags
+- **Policy Enforcement**: Ensure consistent backup policies across organization
+- **Lifecycle Management**: Automatically transition backups to cold storage
+
+#### Cross-Region Backup
+- **Disaster Recovery**: Automatic replication of backups to different regions
+- **Regional Failover**: Restore data in secondary regions during outages
+- **Compliance**: Meet regulatory requirements for geographic redundancy
+- **Data Sovereignty**: Address data residency requirements
+
+### Benefits
+
+#### Centralized Backup Management
+- **Single Dashboard**: Monitor all backup activities from one location
+- **Operational Simplicity**: Reduce complexity of managing multiple backup solutions
+- **Automated Scheduling**: Create backup schedules aligned with business needs
+- **Policy Automation**: Automatically protect new resources as they're created
+
+#### Cross-Region Backup Redundancy
+- **Disaster Recovery**: Automatic backup replication to secondary regions
+- **Regional Resilience**: Protect against region-wide outages
+- **Quick Recovery**: Fast restoration from secondary regions when needed
+- **Compliance Support**: Meet data redundancy and geographic requirements
+
+#### Streamlined Regulatory Compliance
+- **Audit Logs**: Detailed logs of all backup and restore activities
+- **Compliance Reporting**: Demonstrate adherence to regulatory requirements
+- **Policy Enforcement**: Enforce backup policies across organization
+- **Security Standards**: Built-in encryption and access controls
+
+### Use Cases
+
+#### Centralized Disaster Recovery
+- **Multi-Service DR**: Coordinate disaster recovery across multiple AWS services
+- **Cross-Region Recovery**: Restore entire environments in different regions
+- **RTO/RPO Management**: Meet recovery time and point objectives
+- **Testing**: Non-disruptive disaster recovery testing
+
+#### Compliance Requirements
+- **Regulatory Compliance**: Meet industry-specific backup requirements
+- **Audit Preparedness**: Maintain ready-to-present backup compliance reports
+- **Data Retention**: Enforce data retention policies automatically
+- **Security Standards**: Maintain encrypted backups with proper access controls
+
+#### Backup Process Consolidation
+- **Multiple Services**: Consolidate backups for EC2, EBS, RDS, DynamoDB, etc.
+- **Standardized Policies**: Apply consistent backup policies across organization
+- **Cost Optimization**: Reduce costs through centralized management
+- **Operational Efficiency**: Reduce administrative overhead
+
+## Amazon Neptune
+
+### Overview
+Amazon Neptune is a **fully managed graph database service** designed for applications that work with highly connected datasets and complex relationships.
+
+### Key Characteristics
+
+#### Graph Database Model
+- **Highly Connected Data**: Optimized for data with complex relationships
+- **Graph Theory**: Uses nodes, edges, and properties to represent data
+- **Relationship Focus**: Emphasizes connections between data points
+- **Traversal Queries**: Efficiently navigate through complex relationship networks
+
+#### Supported Graph Models
+- **Property Graph Model**: Nodes and edges with key-value properties
+- **RDF (Resource Description Framework)**: W3C standard for semantic web
+- **SPARQL Query Language**: For RDF graph queries
+- **Gremlin Traversal Language**: For property graph queries
+
+### Benefits
+
+#### Purpose-Built for Complex Relationships
+- **Relationship Mapping**: Efficiently store and query complex relationships
+- **Pattern Matching**: Identify patterns across connected data
+- **Graph Algorithms**: Built-in support for graph analysis algorithms
+- **Flexible Models**: Support for both property graph and RDF models
+
+#### High Performance and Scalability
+- **Millisecond Performance**: Process billions of relationships in milliseconds
+- **Automatic Scaling**: Storage scales automatically up to 64TB
+- **Optimized Engine**: Purpose-built engine for graph queries
+- **Fast Traversal**: Efficient navigation through connected data points
+
+#### Enterprise Features
+- **High Availability**: Multi-AZ deployments with automatic failover
+- **Automated Backups**: Point-in-time recovery and continuous backups
+- **Security**: Encryption at rest and in transit, VPC isolation
+- **Monitoring**: Integrated with CloudWatch for performance insights
+
+### Use Cases
+
+#### Social Network User Connection Mapping
+- **Friend Networks**: Map complex social connections and relationships
+- **Influence Analysis**: Identify key influencers and connection patterns
+- **Community Detection**: Find clusters and communities within networks
+- **Recommendation Engines**: Suggest connections based on existing networks
+
+#### Fraud Detection Systems
+- **Pattern Recognition**: Identify suspicious relationship patterns
+- **Transaction Analysis**: Analyze complex transaction networks
+- **Identity Linkage**: Connect seemingly unrelated identities and activities
+- **Real-time Detection**: Detect fraud patterns as they occur
+
+#### Search and Recommendation Systems
+- **Personalized Recommendations**: Suggest content based on relationship patterns
+- **Knowledge Graphs**: Build intelligent search using semantic relationships
+- **Content Discovery**: Recommend related content based on user behavior
+- **Semantic Search**: Understand search intent through relationship analysis
+
+### Architecture Features
+
+#### Storage Architecture
+- **Cluster Storage**: Replicated across multiple Availability Zones
+- **Automatic Scaling**: Storage grows from 10GB to 64TB as needed
+- **High Durability**: Multiple copies of data for fault tolerance
+- **Backup Integration**: Continuous backup to Amazon S3
+
+#### Compute Architecture
+- **Instance Types**: Memory-optimized instances for graph processing
+- **Read Replicas**: Up to 15 read replicas for read scaling
+- **Multi-AZ Deployment**: Automatic replication and failover
+- **Query Optimization**: Optimized for complex graph traversals
+
+## Exam Critical Points
+
+### Amazon DocumentDB
+- **MongoDB Compatible**: Uses MongoDB APIs and tools
+- **Document Database**: Stores JSON-like documents with dynamic schemas
+- **Scalable Storage**: Automatically scales to 64TB
+- **Read Replicas**: Up to 15 replicas for read scaling
+- **Use Cases**: CMS, catalogs, user profiles
+
+### AWS Backup
+- **Centralized Management**: Single dashboard for multiple AWS services
+- **Automated Policies**: Define backup schedules and retention
+- **Cross-Region**: Automatic backup replication to other regions
+- **Compliance**: Audit logs and reporting for regulatory requirements
+
+### Amazon Neptune
+- **Graph Database**: Optimized for highly connected data
+- **Two Models**: Property graph and RDF support
+- **High Performance**: Billions of relationships in milliseconds
+- **Use Cases**: Social networks, fraud detection, recommendations
+
+### Service Selection Guide
+- **DocumentDB**: JSON documents, MongoDB compatibility, flexible schemas
+- **Neptune**: Complex relationships, graph data, network analysis
+- **AWS Backup**: Centralized backup management, cross-service, compliance
