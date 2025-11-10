@@ -164,3 +164,216 @@ The AWS shared responsibility model categorizes database services into three typ
 - Use configuration management for consistency
 - Regular security scanning and patching
 - Comprehensive monitoring and alerting
+
+# Module 7: Databases - Relational Database Services
+
+## Relational Databases Overview
+
+### What are Relational Databases?
+- **Structured Data Storage**: Organize data into tables with rows and columns
+- **Data Relationships**: Connect related data across multiple tables
+- **SQL Language**: Use Structured Query Language for data management and queries
+- **ACID Compliance**: Ensure data integrity with Atomicity, Consistency, Isolation, Durability
+
+### Key Characteristics
+- **Tables**: Data organized in rows (records) and columns (attributes)
+- **Primary Keys**: Unique identifiers for each record
+- **Foreign Keys**: Links between tables to establish relationships
+- **Schema**: Pre-defined structure that enforces data types and relationships
+- **Normalization**: Process of organizing data to reduce redundancy
+
+### Real-World Example: Restaurant Inventory System
+| ID | Product Name | Size | Price |
+|----|-------------|------|-------|
+| 1 | Medium roast ground coffee | 12 oz. | $13.95 |
+| 2 | Single-origin whole bean coffee | 12 oz. | $21.95 |
+
+**Benefits of This Structure:**
+- Easy to query and analyze
+- Consistent data format
+- Scalable for growing inventory
+- Maintains data integrity
+
+## Amazon RDS (Relational Database Service)
+
+### Overview
+Amazon RDS is a **managed relational database service** that handles routine database administration tasks while maintaining high availability and security.
+
+### Key Features
+
+#### Managed Service Benefits
+- **Automated Backups**: Point-in-time recovery and automated backup management
+- **Software Patching**: Automatic security and feature updates
+- **Hardware Provisioning**: AWS handles underlying infrastructure
+- **Monitoring**: Built-in performance insights and CloudWatch integration
+
+#### High Availability Features
+- **Multi-AZ Deployments**: Automatic synchronous replication to standby instance in different Availability Zone
+- **Automatic Failover**: Seamless failover during primary instance failure
+- **Read Replicas**: Asynchronous copies for read-heavy workloads (up to 5 replicas)
+
+#### Backup and Recovery
+- **Automated Backups**: Daily backups with configurable retention (1-35 days)
+- **DB Snapshots**: Manual, user-initiated backups that persist until deleted
+- **Point-in-Time Recovery**: Restore to any second within backup retention period
+
+#### Security Features
+- **Network Isolation**: Deploy within Amazon VPC for network security
+- **Encryption at Rest**: Data encrypted on storage volumes
+- **Encryption in Transit**: SSL/TLS encryption for data moving to/from database
+- **IAM Integration**: Manage access using AWS Identity and Access Management
+- **Security Groups**: Firewall rules controlling database access
+
+### Supported Database Engines
+
+#### Open Source Options
+- **MySQL**: Most popular open-source database
+- **PostgreSQL**: Advanced open-source database with rich features
+- **MariaDB**: MySQL-compatible community-driven database
+
+#### Commercial Options
+- **Oracle Database**: Enterprise-grade commercial database
+- **Microsoft SQL Server**: Windows-based commercial database
+- **Amazon Aurora**: AWS-optimized MySQL/PostgreSQL compatible database
+
+### Scaling Capabilities
+
+#### Vertical Scaling (Scale Up/Down)
+- Change instance class (CPU, RAM, storage type)
+- Can be done with minimal downtime (during maintenance window)
+- **Use Case**: Sudden increase in workload, performance optimization
+
+#### Horizontal Scaling (Read Replicas)
+- Create up to 5 read replicas for read-heavy workloads
+- Read replicas can be in different regions
+- Can be promoted to standalone database if needed
+- **Use Case**: Reporting, analytics, read scaling
+
+### Use Cases
+
+#### Web Applications
+- Dynamic websites with user data
+- Content management systems
+- E-commerce platforms
+
+#### Enterprise Workloads
+- Customer relationship management (CRM)
+- Enterprise resource planning (ERP)
+- Business intelligence applications
+
+#### E-commerce Platforms
+- Product catalogs and inventory management
+- Customer orders and transaction history
+- User accounts and preferences
+
+### Cost Optimization Strategies
+
+#### Instance Right-Sizing
+- Monitor CPU, memory, and storage usage
+- Choose appropriate instance class (General Purpose, Memory Optimized, etc.)
+- Use Performance Insights to identify bottlenecks
+
+#### Storage Optimization
+- General Purpose SSD (gp2/gp3): Balanced price and performance
+- Provisioned IOPS SSD (io1/io2): High-performance workloads
+- Magnetic storage: Legacy option (not recommended for new deployments)
+
+#### Backup Cost Management
+- Automated backups included in storage pricing
+- DB Snapshots incur storage charges
+- Consider lifecycle policies for snapshot management
+
+## Amazon Aurora
+
+### Overview
+Amazon Aurora is a **MySQL and PostgreSQL-compatible** relational database built for the cloud, combining the performance and availability of high-end commercial databases with the simplicity and cost-effectiveness of open-source databases.
+
+### Performance Features
+
+#### High Performance Architecture
+- **5x Performance**: Up to 5x better performance than standard MySQL
+- **3x Performance**: Up to 3x better performance than standard PostgreSQL
+- **Distributed Storage**: Data automatically spans multiple Availability Zones
+- **Self-Healing Storage**: Automatically detects and repairs disk failures
+
+#### Storage Architecture
+- **Automated Scaling**: Storage automatically grows from 10GB to 128TB
+- **Six-Way Replication**: Data copied across 3 Availability Zones (2 copies each)
+- **Continuous Backup**: Backed up continuously to Amazon S3
+- **Point-in-Time Recovery**: Granular recovery to specific moments
+
+### High Availability Features
+
+#### Multi-AZ Deployment
+- **Automatic Failover**: Typically completes in less than 30 seconds
+- **Read Replicas**: Up to 15 read replicas (vs 5 in RDS)
+- **Global Database**: Cross-region replication for disaster recovery
+- **Backtrack**: "Rewind" database to previous point in time without backups
+
+#### Fault Tolerance
+- **Storage-Level Replication**: Data replicated across multiple AZs
+- **Instance-Level Redundancy**: Multiple database instances
+- **Automatic Recovery**: Self-healing from instance and storage failures
+
+### Aurora Serverless
+- **Automatic Scaling**: Automatically starts, scales, and shuts down
+- **Cost Effective**: Pay per second of database usage
+- **No Capacity Planning**: Ideal for variable or unpredictable workloads
+- **Use Cases**: Development, test, and variable production workloads
+
+### Use Cases
+
+#### Gaming Applications
+- Player profiles and game state
+- Leaderboards and achievements
+- Real-time game analytics
+
+#### Media and Content Management
+- User-generated content storage
+- Media metadata management
+- Content delivery platforms
+
+#### Real-Time Analytics
+- Business intelligence dashboards
+- Real-time reporting
+- Operational analytics
+
+### Benefits Comparison: RDS vs Aurora
+
+| Feature | Amazon RDS | Amazon Aurora |
+|---------|------------|---------------|
+| **Performance** | Standard database performance | 5x MySQL, 3x PostgreSQL |
+| **Storage Scaling** | Manual provisioning | Automatic (10GB to 128TB) |
+| **Read Replicas** | Up to 5 | Up to 15 |
+| **Replication** | Multi-AZ synchronous | Six-way replication across AZs |
+| **Backup** | Automated + manual snapshots | Continuous to S3 |
+| **Cost** | Lower for small workloads | Better value at scale |
+| **Failover Time** | 60-120 seconds | Typically under 30 seconds |
+
+## Exam Critical Points
+
+### Must Remember:
+- **RDS is Managed**: AWS handles infrastructure, you manage database
+- **Aurora is High-Performance**: Built for cloud with better performance
+- **Multi-AZ vs Read Replicas**: Multi-AZ for HA, Read Replicas for scaling
+- **Backup Types**: Automated (point-in-time) vs Manual (snapshots)
+
+### Service Selection Guide:
+- **Choose RDS When**:
+  - Standard database requirements
+  - Cost-sensitive projects
+  - Specific database engine features needed
+  - Predictable workloads
+
+- **Choose Aurora When**:
+  - High-performance requirements
+  - Enterprise applications
+  - Need high availability and durability
+  - Cost-effective at scale
+
+### Security Best Practices:
+- Always enable encryption at rest
+- Use IAM database authentication when possible
+- Deploy in private subnets within VPC
+- Use security groups to restrict access
+- Enable automated backups and monitoring
