@@ -377,3 +377,202 @@ Amazon Aurora is a **MySQL and PostgreSQL-compatible** relational database built
 - Deploy in private subnets within VPC
 - Use security groups to restrict access
 - Enable automated backups and monitoring
+
+# Module 7: Databases - NoSQL Database Services
+
+## NoSQL Databases Overview
+
+### What are NoSQL Databases?
+- **Non-Relational Structure**: Different from traditional row-and-column tables
+- **Flexible Schema**: No fixed structure - can add/remove attributes anytime
+- **Key-Value Pairs**: Data organized into items with unique keys and associated values
+- **Scalability**: Designed for horizontal scaling and high-performance workloads
+
+### Key Characteristics
+
+#### Flexible Data Structure
+- **Dynamic Schema**: Each item can have different attributes
+- **No Fixed Columns**: Unlike relational databases with predefined columns
+- **Attribute Variations**: Items can have varying numbers and types of attributes
+- **Schema Evolution**: Easy to modify data structure without downtime
+
+#### Key-Value Model
+- **Key**: Unique identifier for each data item (like a dictionary word)
+- **Value**: Collection of attributes that describe the data (like dictionary definition)
+- **Item**: Complete key-value pair representing a single record
+
+### Real-World Example: User Profiles Database
+
+| Key | Value |
+|-----|-------|
+| 1 | Name: John Doe<br>Address: 123 Any Street<br>Favorite drink: Medium latte |
+| 2 | Name: Mary Major<br>Address: 100 Main Street<br>Birthday: July 5, 1994 |
+
+**Key Observations:**
+- User 1 has attributes: Name, Address, Favorite drink
+- User 2 has attributes: Name, Address, Birthday
+- Different attributes for different users
+- Easy to add new attributes without affecting existing data
+
+### When to Use NoSQL vs Relational
+
+#### Choose NoSQL When:
+- **Unstructured Data**: Data doesn't fit neatly into tables
+- **Rapid Development**: Need flexible, evolving data models
+- **Massive Scale**: Need to handle millions of requests per second
+- **High Performance**: Require single-digit millisecond response times
+- **Global Applications**: Need multi-region replication
+
+#### Choose Relational When:
+- **Structured Data**: Clear, consistent data relationships
+- **Complex Queries**: Need JOIN operations across multiple tables
+- **ACID Compliance**: Require strong consistency guarantees
+- **Existing Applications**: Migrating traditional business applications
+
+## Amazon DynamoDB
+
+### Overview
+Amazon DynamoDB is a **fully managed NoSQL database service** that provides fast, predictable performance with seamless scalability. It's designed for applications that require flexible data models and high performance at any scale.
+
+### Key Features
+
+#### Fully Managed Service
+- **No Server Management**: AWS handles hardware provisioning, setup, configuration, and maintenance
+- **Automatic Software Patching**: Regular updates and security patches applied automatically
+- **Built-in Monitoring**: Integrated with Amazon CloudWatch for performance insights
+- **Automated Backups**: Point-in-time recovery and on-demand backups
+
+#### Performance Characteristics
+- **Single-Digit Millisecond Response Times**: Consistent performance at any scale
+- **Predictable Performance**: Guaranteed throughput with provisioned capacity
+- **Automatic Scaling**: Throughput scales up or down based on actual usage
+- **Global Tables**: Multi-region replication for low-latency access worldwide
+
+### Scalability Features
+
+#### Provisioned Capacity
+- **Throughput Control**: Specify read/write capacity units
+- **Auto Scaling**: Automatically adjusts capacity based on target utilization
+- **On-Demand Capacity**: Pay-per-request model for unpredictable workloads
+- **No Practical Limits**: Virtually unlimited storage and throughput
+
+#### Data Distribution
+- **Automatic Partitioning**: Data automatically distributed across multiple servers
+- **SSD Storage**: All data stored on high-performance solid-state drives
+- **Load Balancing**: Automatic redistribution of data and traffic
+
+### High Availability & Durability
+
+#### Multi-Region Replication
+- **99.999% Availability**: Data replicated across three facilities in each region
+- **Global Tables**: Automatic multi-region replication for disaster recovery
+- **Fault Tolerance**: Continuous operation even if entire facilities fail
+- **Data Durability**: Multiple copies maintained for data protection
+
+#### Backup and Recovery
+- **Point-in-Time Recovery**: Restore to any second in last 35 days
+- **On-Demand Backups**: Full backups for long-term retention
+- **Cross-Region Backups**: Backup data to different regions for compliance
+
+### Security Features
+
+#### Encryption
+- **Encryption at Rest**: All data automatically encrypted before writing to disk
+- **Encryption in Transit**: SSL/TLS encryption for data moving to/from DynamoDB
+- **Key Management Options**: 
+  - AWS Managed Keys (default)
+  - AWS KMS Customer Master Keys
+  - Bring Your Own Keys (BYOK)
+
+#### Access Control
+- **IAM Integration**: Fine-grained access control using AWS Identity and Access Management
+- **VPC Endpoints**: Private network access without internet gateway
+- **Resource Policies**: Control access at the table level
+- **Conditional Policies**: Context-aware access controls
+
+### Use Cases
+
+#### Gaming Platforms
+- **Player Profiles**: Store user data, game state, and preferences
+- **Leaderboards**: Real-time scoring and ranking systems
+- **Session Management**: Track active games and player sessions
+- **Game Analytics**: Process real-time gameplay data
+
+#### Financial Services
+- **Transaction Processing**: High-volume financial transactions
+- **Fraud Detection**: Real-time analysis of transaction patterns
+- **Customer Portfolios**: Store and update investment portfolios
+- **Risk Analysis**: Process market data in real-time
+
+#### Mobile Applications
+- **User Data**: Store user profiles, preferences, and activity
+- **Social Features**: Friend networks, messaging, and notifications
+- **Content Delivery**: Media metadata and user-generated content
+- **Offline Sync**: Synchronize data when connectivity returns
+
+### Performance Optimization
+
+#### Data Modeling
+- **Primary Key Design**: Choose partition keys for even data distribution
+- **Secondary Indexes**: Create local and global secondary indexes for flexible queries
+- **Access Patterns**: Design tables based on application query patterns
+- **Item Size**: Keep items small for better performance
+
+#### Capacity Management
+- **Read Capacity Units (RCU)**: 1 RCU = 1 strongly consistent read of 4KB per second
+- **Write Capacity Units (WCU)**: 1 WCU = 1 write of 1KB per second
+- **Auto Scaling**: Set minimum and maximum capacity limits
+- **On-Demand Mode**: For unpredictable or spiky workloads
+
+### Cost Optimization
+
+#### Pricing Model
+- **Provisioned Capacity**: Pay for allocated read/write capacity
+- **On-Demand Capacity**: Pay per request for unpredictable workloads
+- **Storage Costs**: Pay for actual data storage (per GB)
+- **Backup Storage**: Additional cost for backup data retention
+
+#### Cost Saving Strategies
+- **Right-Sizing**: Monitor and adjust provisioned capacity
+- **Auto Scaling**: Use automatic scaling to match actual usage
+- **Data Compression**: Compress large attribute values
+- **TTL Attributes**: Automatically delete expired data
+
+## Exam Critical Points
+
+### Must Remember:
+- **Fully Managed**: No servers to manage, automatic scaling
+- **Single-Digit Milliseconds**: Consistent performance at any scale
+- **Flexible Schema**: Each item can have different attributes
+- **Key-Value Store**: Data organized by unique keys and attribute values
+
+### Performance Characteristics:
+- **99.999% Availability**: High reliability across multiple facilities
+- **Global Tables**: Multi-region replication for worldwide applications
+- **Auto Scaling**: Automatic throughput adjustment based on usage
+- **No Practical Limits**: Virtually unlimited scale
+
+### Use Case Patterns:
+- **High Traffic Web/Mobile Apps**: User sessions, shopping carts
+- **Gaming Backends**: Player data, leaderboards, game state
+- **IoT Applications**: Device data, sensor readings, telemetry
+- **Real-time Analytics**: Clickstream data, user behavior
+
+### Security Features:
+- **Encryption Default**: All data encrypted at rest by default
+- **IAM Integration**: Fine-grained access control
+- **VPC Endpoints**: Private network connectivity
+- **Point-in-Time Recovery**: 35-day backup window
+
+## Comparison: DynamoDB vs RDS
+
+| Feature | Amazon DynamoDB | Amazon RDS |
+|---------|-----------------|------------|
+| **Database Type** | NoSQL (Key-Value) | Relational (SQL) |
+| **Data Model** | Flexible Schema | Fixed Schema |
+| **Scaling** | Automatic Horizontal | Manual Vertical + Read Replicas |
+| **Performance** | Single-digit ms (consistent) | Varies by instance size |
+| **Management** | Fully Managed | Managed |
+| **Use Case** | Web-scale apps, gaming | Traditional applications, reporting |
+| **Query Language** | PartiQL, SDK | SQL |
+| **Consistency** | Configurable (eventual/strong) | Strong (ACID) |
