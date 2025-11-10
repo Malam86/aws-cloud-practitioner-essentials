@@ -576,3 +576,227 @@ Amazon DynamoDB is a **fully managed NoSQL database service** that provides fast
 | **Use Case** | Web-scale apps, gaming | Traditional applications, reporting |
 | **Query Language** | PartiQL, SDK | SQL |
 | **Consistency** | Configurable (eventual/strong) | Strong (ACID) |
+
+# Module 7: Databases - In-Memory Caching Services
+
+## In-Memory Caches Overview
+
+### What are In-Memory Caches?
+- **High-Speed Storage Layer**: Temporary storage in computer's main memory (RAM)
+- **Extreme Performance**: Hundreds to thousands of times faster than disk-based storage
+- **Temporary Storage**: Stores frequently accessed data for quick retrieval
+- **Cache-Aside Pattern**: Applications check cache first before querying primary database
+
+### Performance Characteristics
+- **RAM Speed**: Data retrieval from memory vs. disk (microseconds vs. milliseconds)
+- **Reduced Latency**: Eliminates disk I/O bottlenecks
+- **Lower Database Load**: Reduces queries to primary data sources
+- **Improved User Experience**: Faster response times for end users
+
+### Common Cache Data Types
+
+#### Session Data
+- User login sessions and authentication tokens
+- Shopping cart contents for e-commerce
+- User preferences and temporary data
+
+#### API Responses
+- Frequently requested API call results
+- External service responses
+- Computationally expensive query results
+
+#### Database Query Results
+- Complex query results that don't change frequently
+- Aggregated data and reports
+- Frequently accessed reference data
+
+### Cache Patterns
+
+#### Cache-Aside (Lazy Loading)
+1. Application checks cache for data
+2. If found (cache hit), return data immediately
+3. If not found (cache miss), query primary database
+4. Store result in cache for future requests
+5. Return data to application
+
+#### Write-Through
+1. Application writes data to cache and database simultaneously
+2. Ensures cache consistency with database
+3. Higher write latency but strong consistency
+
+#### Time-to-Live (TTL)
+- Automatic expiration of cached data after specified time
+- Ensures data doesn't become stale
+- Configurable based on data volatility
+
+## Amazon ElastiCache
+
+### Overview
+Amazon ElastiCache is a **fully managed in-memory caching service** that simplifies deployment and operation of in-memory caches. It supports popular caching engines with automated management and high availability.
+
+### Supported Caching Engines
+
+#### Redis
+- **Advanced Data Structures**: Strings, lists, sets, sorted sets, hashes
+- **Persistence Options**: Optional disk backup for data durability
+- **Replication**: Built-in replication with automatic failover
+- **Pub/Sub Messaging**: Real-time messaging capabilities
+- **Geospatial Support**: Location-based data operations
+
+#### Valkey
+- **Open Source Redis Alternative**: High-performance in-memory data store
+- **Community Driven**: Open source development model
+- **Redis Compatibility**: Works with existing Redis tools and clients
+
+#### Memcached
+- **Simple Key-Value Store**: Basic string-based key-value operations
+- **Multi-threaded Architecture**: Better CPU utilization on larger instance types
+- **No Persistence**: Pure caching solution without disk backup
+- **Horizontal Scaling**: Easy to scale out by adding more nodes
+
+### Engine Comparison
+
+| Feature | Redis | Memcached |
+|---------|-------|-----------|
+| **Data Types** | Multiple (strings, lists, sets, etc.) | Simple key-value |
+| **Persistence** | Optional disk backup | No persistence |
+| **Replication** | Built-in with failover | No native replication |
+| **Transactions** | Supported | Not supported |
+| **Use Case** | Complex data structures, persistence | Simple caching, session storage |
+
+### High Availability Features
+
+#### Automatic Failover
+- **Node Monitoring**: Constant health checks on primary nodes
+- **Automatic Promotion**: Replica nodes promoted to primary during failures
+- **Fast Recovery**: Entire process typically completes within minutes
+- **Zero Manual Intervention**: Fully automated failover process
+
+#### Multi-AZ Deployment
+- **Cross-AZ Replication**: Primary and replica nodes in different Availability Zones
+- **Data Durability**: Protection against entire AZ failures
+- **Automatic Sync**: Continuous data synchronization between nodes
+- **Disaster Recovery**: Maintains cache availability during infrastructure issues
+
+#### Node Recovery
+- **Failed Node Detection**: Automatic identification of unhealthy nodes
+- **Replacement**: Automatic launch of new nodes to replace failed ones
+- **Data Restoration**: Automatic data population from replicas
+- **Seamless Integration**: New nodes automatically join cluster
+
+### Performance Optimization
+
+#### Scalability
+- **Vertical Scaling**: Increase node size (CPU, RAM) for more capacity
+- **Horizontal Scaling**: Add more nodes to distribute load (sharding)
+- **Auto Scaling**: Automatic addition/removal of nodes based on demand
+- **Read Replicas** (Redis): Multiple read replicas for read-heavy workloads
+
+#### Memory Management
+- **Eviction Policies**: Configurable rules for removing data when memory full
+- **LRU (Least Recently Used)**: Automatically removes least accessed data
+- **TTL Enforcement**: Automatic expiration based on time-to-live settings
+- **Memory Optimization**: Efficient data structures and compression
+
+### Security Features
+
+#### Encryption
+
+##### Encryption at Rest
+- **Data Protection**: Encrypts data stored on disk (for Redis persistence and backups)
+- **KMS Integration**: Uses AWS Key Management Service for key management
+- **Backup Encryption**: Automated backups are also encrypted
+- **Compliance**: Meets regulatory requirements for data protection
+
+##### Encryption in Transit
+- **TLS/SSL Encryption**: Secures data between clients and cache nodes
+- **Transport Security**: Prevents eavesdropping on network communications
+- **Certificate Management**: Automatic certificate provisioning and rotation
+- **Secure Connections**: Required for compliance with security standards
+
+#### Network Security
+- **VPC Deployment**: Run within Amazon Virtual Private Cloud for isolation
+- **Security Groups**: Firewall rules controlling access to cache clusters
+- **Subnet Groups**: Deploy across multiple subnets for high availability
+- **Authentication** (Redis): Optional username/password authentication
+
+### Use Cases
+
+#### Session Data Management
+- **Web Applications**: Store user session data across multiple web servers
+- **Load Balancer Support**: Enables stateless application architecture
+- **Session Sharing**: Users can switch between servers without re-authentication
+- **Fault Tolerance**: Session persistence during server failures
+
+#### Database Query Enhancement
+- **Read Acceleration**: Cache frequent database query results
+- **Reduced Load**: Decrease pressure on primary databases
+- **Cost Optimization**: Reduce database scaling requirements
+- **Performance**: Microsecond response times for cached data
+
+#### Gaming Leaderboards
+- **Real-time Rankings**: Store and update player scores in real-time
+- **High Throughput**: Handle thousands of updates per second
+- **Global Visibility**: Consistent leaderboard across all game servers
+- **Fast Retrieval**: Quick access to top scores and rankings
+
+#### API Response Caching
+- **External APIs**: Cache responses from third-party APIs
+- **Rate Limit Management**: Reduce calls to API providers
+- **Performance**: Faster response times for API consumers
+- **Cost Savings**: Reduce external API call costs
+
+### Cost Optimization
+
+#### Instance Selection
+- **Current Generation**: Use latest instance types for better price/performance
+- **Reserved Instances**: Significant discounts for predictable workloads
+- **Node Type Matching**: Choose appropriate memory-optimized instances
+- **Right Sizing**: Monitor memory usage and adjust instance sizes
+
+#### Architecture Optimization
+- **Sharding** (Memcached): Distribute data across multiple nodes
+- **Read Replicas** (Redis): Offload read traffic from primary
+- **TTL Management**: Set appropriate expiration to manage memory usage
+- **Monitoring**: Use CloudWatch to track cache hit ratios and performance
+
+### Monitoring and Management
+
+#### Key Metrics
+- **Cache Hit Ratio**: Percentage of requests served from cache (ideal: >90%)
+- **CPU Utilization**: Monitor for potential bottlenecks
+- **Memory Usage**: Track for capacity planning
+- **Evictions**: Number of items removed due to memory pressure
+- **Network Traffic**: Monitor data transfer volumes
+
+#### CloudWatch Integration
+- **Real-time Monitoring**: Track performance metrics in real-time
+- **Custom Alarms**: Set thresholds for automatic notifications
+- **Logging**: Access and analyze cache operation logs
+- **Dashboard**: Create custom monitoring dashboards
+
+## Exam Critical Points
+
+### Must Remember:
+- **Fully Managed**: AWS handles setup, patching, backup, and failure recovery
+- **Redis vs Memcached**: Redis has persistence and replication; Memcached is simpler
+- **Microsecond Latency**: Orders of magnitude faster than disk-based databases
+- **High Availability**: Multi-AZ deployment with automatic failover
+
+### Use Case Patterns:
+- **Session Stores**: User authentication and state management
+- **Database Caching**: Reduce load on RDS, DynamoDB
+- **Real-time Applications**: Gaming, leaderboards, live updates
+- **API Acceleration**: Cache external API responses
+
+### Performance Optimization:
+- **Cache Hit Ratio**: Key metric for cache effectiveness
+- **Eviction Policies**: Manage memory usage effectively
+- **Appropriate TTL**: Balance freshness vs. performance
+- **Right Sizing**: Match instance size to workload requirements
+
+### Security Best Practices:
+- **Encryption**: Enable both at-rest and in-transit encryption
+- **VPC Deployment**: Isolate cache within private network
+- **Security Groups**: Restrict access to authorized applications only
+- **Regular Updates**: AWS handles security patching automatically
