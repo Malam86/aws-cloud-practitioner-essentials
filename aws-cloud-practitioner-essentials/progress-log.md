@@ -72,3 +72,26 @@ Setting up disaster recovery solutions with Elastic Disaster Recovery
 
 Learning Focus: Amazon RDS, DynamoDB, Aurora, Redshift, and database best practices.
 Next Topics: Relational vs. non-relational databases, database scaling, and management.
+
+2025-11-25: Completed Module 8 - AI/ML & Data Analytics.
+
+Topics Covered:
+Artificial Intelligence (AI) vs Machine Learning (ML)
+Deep Learning and Generative AI
+Foundation Models (FMs) and Large Language Models (LLMs)
+AWS AI Services (Comprehend, Rekognition, Lex, Polly, Personalize)
+Amazon SageMaker for custom ML models
+Amazon Bedrock for foundation models
+Amazon Q for AI assistants
+Data Analytics and ETL processes
+AWS Data Pipeline services (Kinesis, S3, Redshift, Glue, Athena, QuickSight)
+Key Skills Gained:
+Understanding of AI/ML concepts and AWS services for AI/ML
+Ability to choose between pre-built AI services and custom ML models
+Knowledge of data analytics pipeline and AWS data services
+How to integrate AI and data analytics into applications
+
+2025-11-26: Started Module 9 - Security.
+
+Learning Focus: AWS Security Fundamentals, IAM, KMS, CloudTrail, GuardDuty, Security Hub, and security best practices.
+Next Topics: Identity and Access Management, Data Protection, Threat Detection, and Compliance.
