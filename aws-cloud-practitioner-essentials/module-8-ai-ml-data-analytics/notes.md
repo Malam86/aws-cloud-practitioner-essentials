@@ -831,11 +831,81 @@ Input Layer → Hidden Layer 1 → Hidden Layer 2 → ... → Hidden Layer N →
 - **Audit Trail**: Tracks interactions and decisions
 - **Compliance**: Meets enterprise security standards
 
+  #### Amazon Q Business:
+
+##### Overview:
+- **Enterprise Assistant**: Answers questions, solves problems, and takes actions using company data
+- **Data Integration**: Secure connection to company information repositories and commonly used systems
+- **Tailored Assistance**: Provides context-aware help based on company-specific data
+
+##### Key Capabilities:
+- **Information Retrieval**: Find answers in company documents and databases
+- **Problem Solving**: Help resolve business challenges and make decisions
+- **Workflow Automation**: Automate business processes and tasks
+- **Insight Extraction**: Identify patterns and insights from company data
+
+##### Use Cases:
+- **Information Requests**: Quick answers to business questions
+- **Automated Workflows**: Streamline business processes
+- **Insight Extraction**: Discover hidden patterns in company data
+- **Decision Support**: Help make data-driven business decisions
+
+#### Amazon Q Developer:
+
+##### Overview:
+- **Development Assistant**: Provides code recommendations to accelerate development
+- **Multi-language Support**: C#, Java, JavaScript, Python, TypeScript, and more
+- **IDE Integration**: Works with multiple Integrated Development Environments
+- **Code Generation**: Generates entire functions and logical code blocks
+
+##### Key Capabilities:
+- **Code Recommendations**: Intelligent code suggestions and completions
+- **Function Generation**: Create complete functions from descriptions
+- **Security Scanning**: Identify potential security issues in code
+- **Code Reviews**: Automated analysis of code quality and best practices
+
+##### Use Cases:
+- **Faster Code Generation**: Accelerate development with AI-assisted coding
+- **Improved Reliability**: Write more reliable and maintainable code
+- **Enhanced Security**: Identify and fix security vulnerabilities
+- **Automated Code Reviews**: Maintain code quality with automated reviews
+
+#### Common Features Across Both Products:
+
+##### Security and Governance:
+- **Access Control**: Respects existing permissions and policies
+- **Data Privacy**: Keeps company data secure and private
+- **Audit Trail**: Tracks interactions and decisions
+- **Compliance**: Meets enterprise security standards
+
+##### Integration Capabilities:
+- **Company Systems**: Connect to various business applications and data sources
+- **Development Tools**: Integrate with popular IDEs and development environments
+- **AWS Services**: Native integration with AWS ecosystem
+- **API Access**: Programmatic access for custom integrations
+
 ##### Use Cases for Amazon Q:
 - **Developer Productivity**: Code assistance and troubleshooting
 - **Business Intelligence**: Data analysis and report generation
 - **IT Operations**: System monitoring and issue resolution
 - **Employee Onboarding**: Training and knowledge sharing
+
+  ##### Use Cases for Amazon Q Business:
+- **Employee Support**: Help employees find information and complete tasks
+- **Business Intelligence**: Data analysis and report generation for business users
+- **Process Automation**: Streamline business workflows and approvals
+- **Knowledge Management**: Organize and access company information
+
+##### Use Cases for Amazon Q Developer:
+- **Developer Productivity**: Code assistance, debugging, and troubleshooting
+- **Software Development**: Accelerate application development and feature creation
+- **Code Quality**: Improve code reliability, security, and maintainability
+- **Team Onboarding**: Help new developers understand codebases and practices
+
+- ### Amazon Q Product Differentiation:
+- **Amazon Q Business**: For business users, integrates with company data and systems
+- **Amazon Q Developer**: For developers, focuses on code generation and development tasks
+- **Common Foundation**: Both built on AWS's generative AI technology with enterprise security
 
 ## AWS Generative AI Workflow
 
