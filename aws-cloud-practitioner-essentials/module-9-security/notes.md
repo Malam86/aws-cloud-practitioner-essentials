@@ -1,677 +1,307 @@
-Module 9: Introduction to Security on AWS
-📁 Module 9 - Security Notes
-1. Authentication vs Authorization
-Authentication (WHO you are)
-Definition: Verifying the identity of a user or entity through credentials
+# Introduction to Security on AWS
 
-Common credentials: Username/password, MFA tokens, biometrics
+## Authentication and Authorization
 
-Question it answers: "Are you who you claim to be?"
-
-Real-world example: Logging into a portal with your username and password
-
-Authorization (WHAT you can do)
-Definition: Granting users certain access rights and permissions
-
-Determines: Which actions a user can perform in a system or application
-
-Question it answers: "Are you allowed to do this?"
-
-Real-world example: After logging in, an employee can only access their own records, not everyone's records
-
-Quick Comparison Table
-Aspect	Authentication	Authorization
-Focus	Identity verification	Permission validation
-Order	Happens first	Happens after authentication
-Analogy	Showing your ID	Your ID determines which rooms you can enter
-Example	Logging in with password	Accessing only your own files
-2. AWS Shared Responsibility Model
-The Core Concept
-Security is shared between AWS and the customer. Think of it like renting an apartment:
-
-Landlord (AWS) = Responsible for the building structure, plumbing, electricity
-
-Tenant (You) = Responsible for locking your door, securing your belongings
-
-Customer: Security IN the Cloud
-You are responsible for everything you create and manage in AWS
-
-Responsibility	What It Means
-Data security	Managing security of your data, systems, and applications
-Content control	Deciding what data and workloads to store or run in AWS
-Service selection	Determining which AWS services to use
-Access management	Controlling who has access to environments and resources
-AWS: Security OF the Cloud
-AWS is responsible for the infrastructure that runs all services
-
-Responsibility	What It Means
-Foundational software	The software that powers AWS services
-Virtualization layer	The layer that separates customer instances
-Hardware	Servers, storage, networking equipment
-Global infrastructure	Regions, Availability Zones, edge locations
-Visual Summary
-┌─────────────────────────────────────────┐
-│  CUSTOMER: Security IN the Cloud        │
-│  • Data, systems, applications          │
-│  • Access management                     │
-│  • Service configuration                 │
-├─────────────────────────────────────────┤
-│  AWS: Security OF the Cloud             │
-│  • Hardware, software, networking       │
-│  • Virtualization layer                 │
-│  • Global infrastructure (Regions, AZs) │
-└─────────────────────────────────────────┘
-3. AWS Security Controls
-AWS provides security mechanisms to protect your cloud resources in three ways:
-
-1️⃣ Prevent Security Incidents
-Proper permission and access management
-
-Set up who can do what before issues happen
-
-Examples: IAM policies, MFA requirements
-
-2️⃣ Protect Resources
-Safeguard networks, applications, and data
-
-Create barriers against unauthorized access
-
-Examples: Security groups, encryption, WAF
-
-3️⃣ Detect and Respond
-Identify security incidents as they occur
-
-Take action when something suspicious happens
-
-Examples: CloudTrail logging, GuardDuty alerts
-
-📝 Key Takeaways for Exam
-Concept	Remember This
-Authentication	"Who are you?" - Login credentials
-Authorization	"What can you do?" - Permissions after login
-Customer Responsible	Everything you create IN the cloud
-AWS Responsible	Everything OF the cloud (infrastructure)
-Security Controls	Prevent → Protect → Detect & Respond
-
-
-Preventing Unauthorized Access
-
-## AWS Identity and Access Management (IAM)
-
-### Overview
-- **Core Security Service**: Manages identities and access to AWS services and resources
-- **Default Deny**: By default, all actions are denied in AWS
-- **Explicit Permission**: You must explicitly grant permission for any action
-- **Centralized Control**: One place to manage users, permissions, and access
-
-### The Principle of Least Privilege
+### Authentication
 
 #### Definition:
-- **Core Security Concept**: Give people and systems access only to what they need
-- **Minimum Required Access**: Provide exactly the permissions necessary and nothing more
-- **Risk Reduction**: Limits potential damage if credentials are compromised
-- **Operational Best Practice**: Standard security recommendation across all industries
-
-#### Why It Matters:
-- **Security Incidents**: Most breaches happen due to excessive permissions
-- **Accidental Changes**: Prevent unintended modifications to critical resources
-- **Compliance Requirements**: Many regulations require least privilege access
-- **Audit Trail**: Easier to track who did what with limited permissions
-
-#### Implementation in IAM:
-- **Start with Deny**: All actions denied by default
-- **Add Minimal Permissions**: Grant only what's needed for specific tasks
-- **Regular Review**: Periodically audit and remove unnecessary permissions
-- **Use Groups and Roles**: Organize permissions by job function
-
-### IAM Identities
-
-#### IAM Users
-
-##### What is an IAM User?
-- **Individual Identity**: Represents a person or application that needs access to AWS
-- **Unique Credentials**: Each user has their own set of credentials
-- **Long-term Access**: Users have permanent access until disabled
-- **Best Practice**: Avoid using root user, create individual users instead
-
-##### User Credentials:
-- **Password**: For AWS Management Console access
-- **Access Keys**: For programmatic access (CLI, SDKs, APIs)
-- **MFA Devices**: Optional but recommended for additional security
-- **SSH Keys**: For CodeCommit and EC2 instances
-
-##### When to Create Users:
-- **Employees**: Individual developers, administrators, operators
-- **Applications**: Long-running applications needing AWS access
-- **Service Accounts**: Automated processes requiring AWS permissions
-
-#### IAM Groups
-
-##### What is an IAM Group?
-- **Collection of Users**: Organizes users with similar job functions
-- **Permission Inheritance**: Users inherit permissions from their groups
-- **Simplified Management**: Change permissions once for entire group
-- **No Nesting**: Groups cannot contain other groups
-
-##### Common Group Examples:
-- **Admins**: Full access to management functions
-- **Developers**: Access to development resources only
-- **Analysts**: Read-only access to data and reports
-- **Support**: Limited access for troubleshooting
-
-##### Benefits of Groups:
-- **Scalability**: Manage hundreds of users efficiently
-- **Consistency**: All users in same role have identical permissions
-- **Onboarding/Offboarding**: Easy to add/remove users from groups
-- **Audit Friendly**: Clear mapping between job roles and permissions
-
-#### IAM Roles
-
-##### What is an IAM Role?
-- **Temporary Identity**: Assumed temporarily when needed
-- **No Permanent Credentials**: Provides temporary security credentials
-- **Trust Relationship**: Defines who can assume the role
-- **Permission Policy**: Defines what the role can do
-
-##### Key Characteristics:
-- **Time-limited**: Credentials expire automatically (15 minutes to 12 hours)
-- **Automatic Rotation**: New credentials issued each session
-- **Cross-account Access**: Can be used across different AWS accounts
-- **Service Access**: EC2 instances, Lambda functions can assume roles
-
-##### Common Use Cases:
-- **EC2 Instance Access**: Give applications on EC2 access to AWS services
-- **Cross-account Access**: Allow users in one account to access resources in another
-- **Federated Users**: External identity providers accessing AWS
-- **AWS Services**: Lambda functions accessing S3, DynamoDB
-
-##### How Roles Work:
-
-User/Service → Assume Role → Temporary Credentials → Access Resources
-
-### IAM Policies
-
-#### What are IAM Policies?
-- **JSON Documents**: Written in JSON format defining permissions
-- **Permission Rules**: Specify allowed or denied actions on resources
-- **Attachable**: Can be attached to users, groups, or roles
-- **Composable**: Multiple policies can be attached to one identity
-
-Policy Elements:
-Effect:
-Allow: Grants permission
-
-Deny: Explicitly denies permission (overrides any Allow)
-
-Action:
-Service Prefix: e.g., s3:, ec2:, iam:
-
-Specific Actions: e.g., ListBucket, GetObject, CreateUser
-
-Wildcards: Use * for multiple actions
-
-Resource:
-ARN (Amazon Resource Name): Unique identifier for AWS resources
-
-Format: arn:partition:service:region:account:resource
-
-Specific Resources: Target individual buckets, tables, instances
-
-Wildcards: Use * for multiple resources
-
-Condition (Optional):
-Context: When the policy applies (IP address, time, MFA status)
-
-Examples:
-
-Source IP address range
-
-Multi-factor authentication present
-
-Current time within business hours
-
-Policy Types:
-AWS Managed Policies:
-Pre-defined: Created and maintained by AWS
-
-Common Use Cases: AdministratorAccess, ReadOnlyAccess
-
-Automatic Updates: Updated by AWS when needed
-
-Best For: Standard job functions
-
-Customer Managed Policies:
-Custom Created: Written by you for specific needs
-
-Full Control: You create, manage, and update
-
-Reusable: Can be attached to multiple identities
-
-Best For: Organization-specific requirements
-
-Inline Policies:
-Embedded Directly: Attached to single user, group, or role
-
-One-to-One Relationship: Exists only for that identity
-
-Harder to Manage: No reuse across identities
-
-Best For: Special-case permissions
-
-AWS Account Root User
-What is the Root User?
-Account Owner: The email address used to create the AWS account
-
-Unlimited Access: Has complete, unrestricted access to all resources
-
-Single Identity: Only one root user per AWS account
-
-Cannot Be Limited: Root user permissions cannot be restricted by IAM
-
-Best Practices for Root User:
-DO NOT:
-Don't use for daily tasks: Never use root for routine work
-
-Don't share credentials: Keep root user credentials extremely secure
-
-Don't create access keys: Avoid programmatic access as root
-
-Don't use for multiple users: Each person should have their own IAM user
-
-DO:
-Enable MFA: Always enable multi-factor authentication on root user
-
-Secure email: Use a strong, monitored email address
-
-Limited use: Only use for specific account management tasks
-
-Create IAM users: Create IAM users for all human access
-
-When to Use Root User:
-Account Settings: Changing account name, email, password
-
-Billing Information: Accessing and updating payment methods
-
-Support Plans: Changing AWS Support plan
-
-Restricted Actions: Some administrative tasks require root (e.g., closing account)
-
-IAM Actions: Creating IAM users initially, some service-linked roles
-
-Multi-Factor Authentication (MFA)
-What is MFA?
-Additional Security Layer: Requires second authentication factor
-
-Something You Know: Password (first factor)
-
-Something You Have: MFA device (second factor)
-
-Drastically Reduces Risk: Even if password stolen, account remains secure
-
-MFA Options:
-Virtual MFA Devices:
-Authenticator Apps: Google Authenticator, Microsoft Authenticator
-
-Multiple Devices: Can be installed on smartphone or tablet
-
-Cost Effective: Free to use
-
-Supported: Works on any compatible phone
-
-Hardware MFA Devices:
-Physical Tokens: Key fobs, USB devices
-
-No Battery Worry: Some have no battery requirements
-
-High Security: Cannot be copied or duplicated
-
-Compliance: Required for some regulatory standards
-
-FIDO Security Keys:
-Biometric Options: Fingerprint readers on keys
-
-USB/NFC: Connect via USB or tap for NFC
-
-Phishing Resistant: Modern security standard
-
-Where to Enable MFA:
-Root User: Absolutely required
-
-IAM Users: All privileged users
-
-Administrative Groups: Anyone with administrative access
-
-IAM Best Practices
-1. Lock Down Root User
-Enable MFA on root account
-
-Don't use root for everyday tasks
-
-Don't create access keys for root
-
-Store root credentials securely
-
-2. Create Individual Users
-One user per person, not shared accounts
-
-Use groups to assign permissions
-
-Avoid using root for anyone
-
-3. Use Groups for Permissions
-Assign permissions to groups, not individuals
-
-Users join groups based on job function
-
-Makes management scalable and consistent
-
-4. Grant Least Privilege
-Start with minimal permissions
-
-Add only what's needed for specific tasks
-
-Regularly audit and remove excess permissions
-
-Use conditions to further restrict access
-
-5. Use IAM Roles for Applications
-Don't put credentials in code
-
-EC2 instances should assume roles
-
-Lambda functions should use execution roles
-
-Temporary credentials are more secure
-
-6. Enable MFA for All Users
-Especially for privileged users
-
-Consider requiring MFA for sensitive actions
-
-Use MFA conditions in policies
-
-7. Rotate Credentials Regularly
-Rotate access keys periodically
-
-Remove unused credentials
-
-Don't share access keys
-
-Use AWS Secrets Manager for automation
-
-8. Monitor IAM Activity
-Use AWS CloudTrail to track IAM actions
-
-Monitor for unusual activity
-
-Set up alerts for critical changes
-
-Regularly review IAM configuration
-
-Additional Access Management Services
-AWS IAM Identity Center
-Overview:
-Centralized Identity Management: Manages access across AWS accounts and applications
-
-Single Sign-On (SSO) : Users log in once to access multiple resources
-
-Federated Identity: Connects to existing identity sources (Active Directory, Okta, etc.)
-
-Workforce Access: Designed for employees and contractors
-
-Key Features:
-Federated Identity Management:
-Definition: System allowing users to access multiple applications with single set of credentials
-
-Identity Sources:
-
-AWS Managed Directory: Built-in directory service
-
-Self-managed Active Directory: Connect on-premises AD
-
-External Identity Providers: Okta, Azure AD, Google Workspace
-
-Benefits: Users remember one password, centralized management
-
-Multi-Account Access:
-AWS Organizations Integration: Manage access across all accounts in organization
-
-Permission Sets: Define what users can do in each account
-
-Account Assignment: Assign users/groups to specific accounts
-
-Centralized Auditing: Track user activity across all accounts
-
-Application Access:
-SSO for Business Apps: Salesforce, Office 365, Slack, etc.
-
-Custom Applications: SAML 2.0 integration for custom apps
-
-AWS Managed Applications: QuickSight, CodeCommit, etc.
-
-User Portal: Single dashboard for all accessible applications
-
-Benefits:
-Improved User Experience: One login for everything
-
-Enhanced Security: Centralized control over authentication
-
-Reduced Password Fatigue: Fewer passwords to remember
-
-Simplified On/Offboarding: One place to grant/revoke access
-
-Audit Trail: Comprehensive logging of user activity
-
-AWS Secrets Manager
-Overview:
-Secure Secret Storage: Manages passwords, API keys, database credentials
-
-Lifecycle Management: Automates rotation of secrets
-
-Fine-grained Access: IAM policies control who can access secrets
-
-Encryption: Automatically encrypts secrets at rest
-
-What Are Secrets?
-Definition: Confidential information known only to specific individuals/groups
-
-Examples:
-
-Database passwords and credentials
-
-API keys for third-party services
-
-SSH keys and certificates
-
-OAuth tokens and application secrets
-
-Key Features:
-Secure Storage:
-Encryption at Rest: Uses AWS KMS for encryption
-
-Encryption in Transit: All API calls use TLS
-
-Access Control: IAM policies restrict who can access secrets
-
-Audit Trail: CloudTrail logs all secret access
-
-Automatic Rotation:
-Scheduled Rotation: Automatically change secrets on schedule
-
-Lambda Integration: Custom rotation functions
-
-Database Integration: Built-in rotation for RDS, Redshift, DocumentDB
-
-No Downtime: Applications use new credentials seamlessly
-
-Retrieval:
-SDK Integration: Applications retrieve secrets programmatically
-
-Caching: SDKs can cache secrets for performance
-
-Version Tracking: Multiple versions of secrets maintained
-
-Secret References: Use secret ARNs in configuration
-
-Benefits:
-Security Improvements:
-No Hard-coded Secrets: Never put credentials in code
-
-Centralized Management: All secrets in one secure place
-
-Automatic Rotation: Regularly change secrets without manual work
-
-Access Control: Fine-grained permissions for each secret
-
-Operational Benefits:
-Reduced Risk: No exposed credentials in configuration files
-
-Compliance: Meets requirements for secret rotation
-
-Developer Productivity: Easy to retrieve secrets in code
-
-Audit Ready: Complete history of secret access and changes
-
-AWS Systems Manager
-Overview:
-Centralized Management: Single view for managing AWS resources
-
-Node Management: Manage EC2 instances, on-premises servers, hybrid environments
-
-Automation: Automate operational tasks and patching
-
-Unified Interface: Consistent experience across accounts and regions
-
-Key Concepts:
-Nodes:
-Definition: Connection points in a network, system, or structure
-
-Examples: EC2 instances, on-premises servers, virtual machines
-
-Management: Systems Manager provides unified node management
-
-Visibility: Central view of all nodes regardless of location
-
-Capabilities:
-Inventory Management:
-Resource Discovery: Automatically discover all nodes
-
-Configuration Tracking: Track OS, applications, patches
-
-Metadata Collection: Collect system information and details
-
-Centralized View: Single dashboard for all resources
-
-Patch Management:
-Automated Patching: Schedule and automate security patches
-
-Compliance Monitoring: Track patch compliance across nodes
-
-Approval Workflows: Control which patches are applied
-
-Reporting: Detailed compliance reports for audits
-
-Automation:
-Run Commands: Execute scripts across multiple nodes
-
-State Management: Ensure nodes stay in desired state
-
-Maintenance Windows: Schedule operational tasks
-
-Workflow Automation: Create multi-step automation workflows
-
-Session Manager:
-Secure Shell Access: Connect to instances without SSH keys
-
-No Open Ports: No need for open inbound ports
-
-Audit Logging: All sessions logged and audited
-
-IAM Integration: Fine-grained access control
-
-Benefits:
-Centralized Control: Manage all resources from one place
-
-Improved Security: No need for permanent SSH keys
-
-Automated Compliance: Ensure all nodes meet security standards
-
-Operational Efficiency: Automate routine tasks
-
-Hybrid Support: Manage on-premises and cloud resources together
-
-Exam Critical Points
-Must Remember Definitions:
-IAM Basics:
-Root User: Account owner, unlimited access, use MFA, avoid daily use
-
-IAM Users: Individual identities for people/applications
-
-IAM Groups: Collections of users for permission management
-
-IAM Roles: Temporary identities for services and cross-account access
-
-IAM Policies: JSON documents defining permissions
-
-Key Concepts:
-Principle of Least Privilege: Grant only necessary permissions
-
-Default Deny: All actions denied by default
-
-Explicit Allow: Must specifically grant permission
-
-MFA: Multi-factor authentication for additional security
-
-Additional Services:
-IAM Identity Center: Centralized SSO and federated identity
-
-Secrets Manager: Secure storage and rotation of secrets
-
-Systems Manager: Centralized node management and automation
-
-Service Comparison:
-Service	Purpose	Key Feature
-IAM	Identity and access management	Users, groups, roles, policies
-IAM Identity Center	Centralized workforce access	SSO, federation, multi-account
-Secrets Manager	Secret storage and rotation	Automatic rotation, encryption
-Systems Manager	Node management and automation	Patching, inventory, session manager
-Common Exam Scenarios:
-Least Privilege Questions:
-Look for phrases like "minimum access," "need-to-have," "only what's necessary"
-
-Answer will involve granting limited permissions
-
-Root User Questions:
-When should root user be used? Account settings, billing, restricted tasks
-
-How to secure root? Enable MFA, secure email, avoid daily use
-
-IAM Role Questions:
-When to use roles? EC2 instances need S3 access, cross-account access
-
-Benefits? Temporary credentials, no hard-coded keys, automatic rotation
-
-MFA Questions:
-Why use MFA? Additional security layer, protects even if password stolen
-
-Where required? Root user, privileged IAM users
-
-Security Best Practices Summary:
-Root user: Enable MFA, lock down, don't use daily
-
-IAM users: Create individual users, use groups
-
-Least privilege: Grant minimal permissions, audit regularly
-
-Roles: Use for applications and services
-
-MFA: Enable for all users, especially privileged
-
-Secrets Manager: Never hard-code credentials
-
-Systems Manager: Centralize node management and patching
-
-Monitor: Use CloudTrail to track access and changes
+- **Process of verifying identity** of a user or entity
+- **Credentials required**: Username, password, biometrics, MFA tokens
+- **Answers the question**: "Who are you?"
+
+#### Use Case Example:
+- **Employee logs in** to an employee portal using username and password
+- System verifies the credentials match a valid user
+- If credentials are correct, authentication succeeds
+
+#### Key Points:
+- **First step** in access control
+- Establishes identity
+- Can use single-factor (password) or multi-factor (password + MFA)
+- Does NOT determine what you can do
+
+### Authorization
+
+#### Definition:
+- **Grants access rights and permissions** to authenticated users
+- **Determines actions** a user can perform in a system
+- **Answers the question**: "What are you allowed to do?"
+
+#### Use Case Example:
+- After logging in, employee can **only access their own records**
+- Cannot view other employees' information
+- Permissions are limited to necessary functions
+
+#### Key Points:
+- **Second step** after authentication
+- Defines allowed actions (read, write, delete, etc.)
+- Enforces the principle of least privilege
+- Scope can be specific (one record) or broad (entire system)
+
+### Authentication vs Authorization Comparison
+
+| Aspect | Authentication | Authorization |
+|--------|---------------|---------------|
+| **Purpose** | Verify identity | Grant permissions |
+| **Question** | Who are you? | What can you do? |
+| **Order** | First | Second |
+| **Example** | Login with password | Access only your records |
+| **Analogies** | Showing ID at airport | Boarding pass allows on plane |
+| **AWS Service** | IAM user login, MFA | IAM policies |
+
+### Visual Example:
+
+User enters username/password → AUTHENTICATION (Identity verified)
+↓
+User requests access to records → AUTHORIZATION (Permission checked)
+↓
+User can only access own records → ACCESS GRANTED
+
+
+## AWS Shared Responsibility Model
+
+### Overview:
+- **Cloud security is shared** between AWS and customers
+- **Clear division**: AWS secures the cloud, customers secure in the cloud
+- **No single party** is responsible for everything
+- **Understanding this model** is critical for exam and real-world security
+
+### Customer Responsibility: Security IN the Cloud
+
+#### What Customers Control:
+- **Customer maintains complete control** over their content
+- **Responsible for everything** they create and manage in AWS
+
+#### Customer Responsibilities Include:
+
+##### 1. Data and Content Security
+- **Managing security of data**, systems, and applications
+- **Data classification** and encryption
+- **Access controls** for their resources
+- **Backup and recovery** planning
+
+##### 2. Workload Decisions
+- **Deciding what data and workloads** to store or run in AWS
+- **Choosing appropriate AWS services** for specific needs
+- **Determining deployment architectures**
+
+##### 3. Service Configuration
+- **Determining which AWS services** to use
+- **Configuring services securely** according to best practices
+- **Managing service-specific security settings**
+
+##### 4. Access Management
+- **Controlling who has access** to environments and resources
+- **Managing user identities** and permissions
+- **Implementing least privilege access**
+
+##### 5. Application Security
+- **Securing applications** deployed on AWS
+- **Writing secure code** and managing dependencies
+- **Application-level authentication and authorization**
+
+### AWS Responsibility: Security OF the Cloud
+
+#### What AWS Controls:
+- **AWS operates, manages, and controls** components at all infrastructure layers
+- **Responsible for the foundation** that services run on
+
+#### AWS Responsibilities Include:
+
+##### 1. Foundational Software
+- **Software that powers AWS services**
+- **Hypervisor layer** that separates customer instances
+- **Operating systems** on AWS-managed infrastructure
+
+##### 2. Virtualization Layer
+- **Hardware virtualization** that enables multi-tenancy
+- **Isolation between customer resources**
+- **Hypervisor security** and updates
+
+##### 3. Hardware Infrastructure
+- **Servers**, storage devices, and networking equipment
+- **Physical security** of data centers
+- **Power, cooling, and environmental controls**
+
+##### 4. Global Infrastructure
+- **AWS Regions** - geographic locations
+- **Availability Zones** - isolated data center clusters
+- **Edge Locations** - content delivery endpoints
+- **Physical network** connecting all components
+
+##### 5. Managed Service Components
+- **For managed services** (RDS, DynamoDB, etc.), AWS handles more
+- **Database engine patching** for managed services
+- **Infrastructure maintenance** for all services
+
+### Shared Responsibility Model Visualization:
+
+─────────────────────────────────────────────────┐
+│ CUSTOMER (IN the cloud) │
+│ • Data & Content Security │
+│ • Applications & Configuration │
+│ • Access Management │
+│ • Service Selection & Usage │
+├─────────────────────────────────────────────────┤
+│ AWS (OF the cloud) │
+│ • Hardware & Global Infrastructure │
+│ • Virtualization Layer │
+│ • Foundational Software │
+│ • Physical Security │
+└───────────────────────────
+
+### Service Category Variations:
+
+#### Infrastructure Services (EC2, EBS, VPC):
+- **Customer manages more**: OS, applications, network configuration
+- **AWS manages**: Physical hardware, virtualization
+
+#### Container Services (ECS, EKS):
+- **Shared responsibility**: AWS manages orchestration, customer manages containers
+- **Customer manages**: Container images, application code
+
+#### Abstracted Services (S3, DynamoDB, Lambda):
+- **AWS manages more**: Serverless, no customer access to underlying OS
+- **Customer manages**: Data, configuration, access policies
+
+### Shared Responsibility Examples:
+
+| Responsibility Area | Customer | AWS |
+|--------------------|----------|-----|
+| **Physical Security** | No | Yes |
+| **Hypervisor Security** | No | Yes |
+| **Network Infrastructure** | No | Yes |
+| **OS Patching (EC2)** | Yes | No |
+| **Database Configuration** | Yes (on EC2) / No (on RDS) | No (on EC2) / Yes (on RDS) |
+| **Data Encryption** | Yes | Provides tools |
+| **IAM Configuration** | Yes | No |
+| **Application Code** | Yes | No |
+
+## AWS Security Controls
+
+### Purpose of Security Controls:
+- **Prevent security incidents** before they happen
+- **Protect networks, applications, and data**
+- **Detect and respond** to incidents as they occur
+- **Provide defense in depth** across multiple layers
+
+### Three Categories of Security Controls:
+
+#### 1. Preventive Controls
+
+##### Purpose:
+- **Stop security incidents** from occurring
+- **Block unauthorized access** before it happens
+- **Enforce security policies** proactively
+
+##### Examples from AWS:
+- **IAM**: Proper permission and access management
+- **Security Groups**: Instance-level firewalls
+- **Network ACLs**: Subnet-level access control
+- **AWS WAF**: Block malicious web traffic
+- **Encryption**: Protect data at rest and in transit
+
+##### Key Quote from Notes:
+> "Prevent security incidents through proper permission and access management."
+
+#### 2. Detective Controls
+
+##### Purpose:
+- **Identify security incidents** as they occur
+- **Monitor for suspicious activity**
+- **Provide visibility** into security posture
+
+##### Examples from AWS:
+- **Amazon GuardDuty**: Threat detection
+- **AWS CloudTrail**: API activity logging
+- **Amazon Inspector**: Vulnerability assessment
+- **AWS Config**: Configuration monitoring
+- **Amazon Macie**: Sensitive data discovery
+
+##### Key Quote from Notes:
+> "Detect and respond to security incidents as they occur."
+
+#### 3. Protective Controls
+
+##### Purpose:
+- **Limit impact** of security incidents
+- **Safeguard resources** during an attack
+- **Maintain availability** under duress
+
+##### Examples from AWS:
+- **AWS Shield**: DDoS protection
+- **AWS WAF**: Web application firewall
+- **Auto Scaling**: Maintain capacity during attacks
+- **Backup and Recovery**: Restore after incidents
+
+##### Key Quote from Notes:
+> "Protect networks, applications, and data."
+
+### Defense in Depth Strategy:
+
+Layer 1: Preventive Controls (IAM, Security Groups)
+↓
+Layer 2: Protective Controls (Shield, WAF)
+↓
+Layer 3: Detective Controls (GuardDuty, CloudTrail)
+↓
+Layer 4: Response (Automated + Manual)
+
+
+## Exam Critical Points
+
+### Must Remember Definitions:
+
+#### Authentication:
+- **Verifying identity** (username/password, MFA)
+- "Who are you?"
+- First step in access control
+
+#### Authorization:
+- **Granting permissions** (what you can do)
+- "What are you allowed to do?"
+- Second step after authentication
+
+### Shared Responsibility Model:
+
+#### Customer: Security IN the Cloud
+- **Data, applications, access management**
+- **Service configuration**
+- **What you put IN AWS**
+
+#### AWS: Security OF the Cloud
+- **Hardware, software, networking**
+- **Global infrastructure**
+- **What AWS provides**
+
+### Three Control Categories:
+
+| Category | Purpose | Examples |
+|----------|---------|----------|
+| **Preventive** | Stop incidents | IAM, Security Groups, WAF |
+| **Detective** | Identify incidents | GuardDuty, CloudTrail, Inspector |
+| **Protective** | Limit impact | Shield, backups, auto scaling |
+
+### Common Exam Scenarios:
+
+#### Authentication vs Authorization:
+- **Login process** = Authentication
+- **Access to specific resources** = Authorization
+- **MFA** = Authentication enhancement
+- **IAM policies** = Authorization tool
+
+#### Shared Responsibility:
+- **EC2 instance OS patching** = Customer responsibility
+- **Physical data center security** = AWS responsibility
+- **RDS database encryption** = Customer configures, AWS provides tools
+- **S3 bucket permissions** = Customer responsibility
+
+### Key Takeaways:
+1. **Authentication proves who you are**, authorization determines what you can do
+2. **AWS secures the infrastructure**, customers secure their content and configuration
+3. **Multiple control types** work together for comprehensive security
+4. **Defense in depth** uses layers of preventive, detective, and protective controls
+5. **Understand your responsibilities** based on which services you use
 
 # Protecting Networks and Applications
 
