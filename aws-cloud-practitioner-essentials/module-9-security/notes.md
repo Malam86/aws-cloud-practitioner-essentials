@@ -57,6 +57,103 @@ User requests access to records → AUTHORIZATION (Permission checked)
 ↓
 User can only access own records → ACCESS GRANTED
 
+## AWS Identity and Access Management (IAM)
+
+### IAM Groups
+
+#### What is an IAM Group?
+- **Collection of Users**: A group is a way to organize IAM users with similar job functions
+- **Permission Inheritance**: Users automatically inherit all permissions assigned to the group
+- **No Nesting**: Groups cannot contain other groups (only users)
+
+#### Key Characteristics:
+- **Simplified Management**: Change permissions once for the entire group instead of updating each user individually
+- **Scalable**: Easily manage hundreds of users with the same job function
+- **Consistent**: All users in the same group have identical permissions
+- **No Cost**: Groups are a management feature at no additional cost
+
+#### How Groups Work:
+Create Group "Designers" → Attach Policy (S3 access) → Add Users to Group
+↓
+User1 → Inherits S3 access
+User2 → Inherits S3 access
+User3 → Inherits S3 access
+
+
+#### Benefits of Using Groups:
+
+##### 1. Scalable Permission Management
+- Add new user to group → Automatically gets all group permissions
+- Remove user from group → All group permissions revoked
+- No need to manage permissions for each user individually
+
+##### 2. Consistent Access Control
+- All users in same role have identical permissions
+- No variation or accidental permission differences
+- Easier to audit and verify compliance
+
+##### 3. Simplified Onboarding/Offboarding
+- **New employee**: Add to appropriate groups based on job role
+- **Role change**: Move user between groups
+- **Departure**: Remove user from all groups
+
+##### 4. Centralized Policy Updates
+- Update the policy attached to the group once
+- Changes apply to all group members automatically
+- No need to update each user individually
+
+#### Common Group Examples:
+| Group Name | Typical Permissions |
+|------------|---------------------|
+| **Admins** | Full access to all resources |
+| **Developers** | Access to development resources, read-only on production |
+| **Designers** | Access to specific S3 buckets, read-only on assets |
+| **Analysts** | Read-only access to data and reports |
+| **Support** | Limited troubleshooting permissions |
+
+#### IAM Group Best Practices:
+
+##### DO:
+- **Create groups based on job functions** (Developer, Admin, Analyst)
+- **Assign permissions to groups, not individual users**
+- **Use descriptive group names** that reflect the role
+- **Review group memberships regularly** for accuracy
+- **Use multiple groups** if users need cross-functional access
+
+##### DON'T:
+- **Don't assign permissions directly to users** (use groups instead)
+- **Don't create groups for single users** (defeats the purpose)
+- **Don't use overly broad group permissions** (follow least privilege)
+
+#### IAM Groups vs Other IAM Concepts:
+
+| Feature | IAM Group | IAM User | IAM Role |
+|---------|-----------|----------|----------|
+| **Purpose** | Organize users | Individual identity | Temporary access |
+| **Permanent** | Yes | Yes | No (temporary credentials) |
+| **Multiple members** | Yes | No (one person) | Can be assumed by many |
+| **Best for** | Team-based permissions | Individual users | Applications, cross-account |
+
+#### Real-World Example:
+A company has 50 designers who all need access to the same S3 buckets:
+
+**Without Groups (Wrong Way):**
+- Create 50 IAM users
+- Attach S3 access policy to each user individually (50 times)
+- When a new bucket is added, update all 50 users
+
+**With Groups (Right Way):**
+- Create one IAM group called "Designers"
+- Attach S3 access policy to the group (once)
+- Add all 50 users to the group
+- When a new bucket is added, update the group policy → all 50 users automatically get access
+
+#### Exam Tips:
+- **Groups simplify permission management** for multiple users with the same job function
+- **Users inherit permissions** from the groups they belong to
+- **A user can belong to multiple groups** (permissions are combined)
+- **There's no default "All Users" group** - you must create groups as needed
+- **Groups cannot be nested** - no groups within groups
 
 ## AWS Shared Responsibility Model
 
