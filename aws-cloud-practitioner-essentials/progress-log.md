@@ -95,3 +95,15 @@ How to integrate AI and data analytics into applications
 
 Learning Focus: AWS Security Fundamentals, IAM, KMS, CloudTrail, GuardDuty, Security Hub, and security best practices.
 Next Topics: Identity and Access Management, Data Protection, Threat Detection, and Compliance.
+
+### 2025-10-30: Started Module 10 – Monitoring, Compliance, and Governance
+**Current Focus:** Setting up folder structure for monitoring, compliance, and governance services.
+
+**Topics to Cover:**
+- Amazon CloudWatch (metrics, logs, alarms)
+- AWS CloudTrail (audit logging)
+- AWS Config (resource compliance)
+- AWS Trusted Advisor (best practice checks)
+- AWS Audit Manager, AWS Artifact, AWS Organizations, etc.
+
+**Next Steps:** Begin adding detailed notes for each service.
