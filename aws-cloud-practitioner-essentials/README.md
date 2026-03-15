@@ -4,7 +4,7 @@ This repository documents my learning journey while completing the **AWS Cloud P
 The purpose is to build a solid foundation in cloud concepts, AWS services, security, pricing, and support — while also maintaining a professional record of progress.  
 
 ## 📚 Modules
-- [Module 1: Introduction to Amazon Web Services](./module-01-introduction-to-cloud/notes.md) ✅
+- [Module 1: Introduction to Amazon Web Services](./module-1-introduction-to-cloudd/notes.md) ✅
 - [Module 2: Compute in the Cloud](./module-2-compute-in-the-cloud/lab-work/notes.md) ✅
 - [Module 3: Exploring Compute Services](./module-3-exploring-compute-services/notes.md) ✅
 - [Module 4: Going Global](./module-4-going-global/notes.md) ✅
