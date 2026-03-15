@@ -13,7 +13,7 @@ The purpose is to build a solid foundation in cloud concepts, AWS services, secu
 - [Module 7: Databases](module-7-databases/notes.md) ✅
 - [Module 8: AI/ML & Data Analytics](module-8-ai-ml-data-analytics/notes.md) ✅
 - [Module 9: Security](module-9-security/notes.md)✅
-- Module 10: Monitoring, Compliance and Governance in the AWS Cloud ⏳
+- [Module 10: Monitoring, Compliance & Governance](module-10-monitoring-compliance-governance/notes.md) ⏳
 - Module 11: Pricing and Support
 - Module 12: Migrating to the AWS Cloud
 - Module 13: Well-Architected Solutions 
