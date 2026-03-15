@@ -91,7 +91,7 @@ Ability to choose between pre-built AI services and custom ML models
 Knowledge of data analytics pipeline and AWS data services
 How to integrate AI and data analytics into applications
 
-2025-11-26: Started Module 9 - Security.
+2025-11-26:Completed Module 9 - Security.
 
 Learning Focus: AWS Security Fundamentals, IAM, KMS, CloudTrail, GuardDuty, Security Hub, and security best practices.
 Next Topics: Identity and Access Management, Data Protection, Threat Detection, and Compliance.
